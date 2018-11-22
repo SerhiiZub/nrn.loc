@@ -11,7 +11,8 @@
  * @link     http://yupe.ru
  *
  **/
-class UserBackendController extends yupe\components\controllers\BackController
+class UserBackendController extends application\modules\admin\components\AdminController
+//class UserBackendController extends yupe\components\controllers\BackController
 {
     /**
      * @return array

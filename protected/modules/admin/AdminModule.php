@@ -191,6 +191,7 @@ class AdminModule  extends yupe\components\WebModule
     {
         parent::init();
 
+//        Yii::app()->theme = 'admin';
         $this->setImport(
             [
                 'admin.models.*',

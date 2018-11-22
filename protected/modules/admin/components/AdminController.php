@@ -19,13 +19,10 @@ abstract class AdminController extends BackController
     {
         parent::init();
         $this->layout = 'themes.admin.views.layouts.column2';
-//        $this->layout = 'themes.backend_admin.views.layouts.column2';
-//        $this->layout = 'themes.backend_admin.views.layouts.main';
         Yii::app()->theme = "admin";
-//        Yii::app()->theme = "backend_admin";
         $this->mainAssets = Yii::app()->getTheme()->getAssetsUrl();
         $bootstrap = Yii::app()->getTheme()->getBasePath() . DIRECTORY_SEPARATOR . "bootstrap.php";
-
+        Yii::app()->getModule('admin')->init();
         if (is_file($bootstrap)) {
             require $bootstrap;
         }
