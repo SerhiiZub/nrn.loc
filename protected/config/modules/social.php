@@ -22,8 +22,8 @@ return [
                 'facebook'  => [
                     // register your app here: https://developers.facebook.com/apps/
                     'class'         => 'application\modules\social\components\services\Facebook',
-                    'client_id'     => '564855653967119',
-                    'client_secret' => '23fbfa89231ef72f459a80246b51454d',
+                    'client_id'     => '',
+                    'client_secret' => '',
                     'scope'         => 'email',
                 ],
                 'vkontakte' => [
