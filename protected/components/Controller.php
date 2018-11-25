@@ -32,4 +32,14 @@ class Controller extends BaseController
      */
     public $menu = [];
 
+    public function init()
+    {
+        parent::init();
+//        Yii::app()->theme = 'sportEvents';
+//        $this->layout = 'main';
+//        $this->layout =  'themes.sportEvents.views.layouts.yupe';
+        $this->layout =  'themes.sportEvents.views.layouts.main';
+//        $this->layout =  'themes.sportEvents.views.layouts.column2';
+    }
+
 }

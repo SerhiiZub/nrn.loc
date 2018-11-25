@@ -21,6 +21,9 @@ return [
         '/admin/default/index' => '/admin/adminBackend/index',
         '/admin/user' => '/user/userBackend/index',
         '/admin/user/<action:\w+>' => '/user/userBackend/<action>',
+        '/admin/event' => '/Event/eventBackend/index',
+        '/admin/event/<action:\w+>' => '/Event/EventBackend/<action>',
+        '/event/<action:\w+>' => '/Event/Event/<action>',
 //        '/admin/<action:\w+>/<id:\w+>' => 'coupon/coupon/<action>',
     ],
 ];

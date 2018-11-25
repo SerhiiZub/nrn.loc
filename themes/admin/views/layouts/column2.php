@@ -23,7 +23,7 @@
                             'items'=>array(
                                 array('label'=>Menu::link('Admin menu'), 'itemOptions'=>array('class'=>'header')),
                                 array('label'=>Menu::link('Dashboard', 'fa fa-dashboard'), 'url'=>array('/admin/default/index')),
-                                array('label'=>Menu::link('Users', 'fa fa-user'), 'url'=>array('/backend/user/user'), 'items' => [
+                                array('label'=>Menu::link('Users', 'fa fa-user'), 'url'=>array('/admin/user'), 'items' => [
 //                                    array('label'=>'Roles', 'url'=>array('/backend/rbac/rbac/userList')),
 //                                    array('label'=>'Level 4 Two', 'url'=>array('product/index')),
                                 ]),
@@ -33,32 +33,32 @@
                             ),
                     )); ?>
 
-                    <?php
-                    $this->widget(
-                        'bootstrap.widgets.TbNavbar',
-                        [
-                            'fluid'    => true,
-                            'fixed'    => 'right',
-                            /*'brand'    => CHtml::image(
-                                $mainAssets . '/img/logo.png',
-                                CHtml::encode(Yii::app()->name),
-                                [
-                                    'width'  => '38',
-                                    'height' => '38',
-                                    'title'  => CHtml::encode(Yii::app()->name),
-                                ]
-                            ),*/
-                            'brandUrl' => CHtml::normalizeUrl(["/yupe/backend/index"]),
-                            'items'    => [
-                                [
-                                    'class' => 'bootstrap.widgets.TbMenu',
-                                    'type'  => 'navbar',
-                                    'encodeLabel' => false,
-                                    'items' => Yii::app()->moduleManager->getModules(true),
-                                ],
-                        ],
-                    ]);
-                    ?>
+<!--                    --><?php
+//                    $this->widget(
+//                        'bootstrap.widgets.TbNavbar',
+//                        [
+//                            'fluid'    => true,
+//                            'fixed'    => 'right',
+//                            /*'brand'    => CHtml::image(
+//                                $mainAssets . '/img/logo.png',
+//                                CHtml::encode(Yii::app()->name),
+//                                [
+//                                    'width'  => '38',
+//                                    'height' => '38',
+//                                    'title'  => CHtml::encode(Yii::app()->name),
+//                                ]
+//                            ),*/
+//                            'brandUrl' => CHtml::normalizeUrl(["/yupe/backend/index"]),
+//                            'items'    => [
+//                                [
+//                                    'class' => 'bootstrap.widgets.TbMenu',
+//                                    'type'  => 'navbar',
+//                                    'encodeLabel' => false,
+//                                    'items' => Yii::app()->moduleManager->getModules(true),
+//                                ],
+//                        ],
+//                    ]);
+//                    ?>
 
                     <?php /*$this->widget('zii.widgets.CMenu',array(
                         'htmlOptions' => array(

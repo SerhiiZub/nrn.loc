@@ -16,6 +16,6 @@ return [
     'import'    => [],
     'component' => [],
     'rules'     => [
-        '/' => '/homepage/hp/index',
+//        '/' => '/homepage/hp/index',
     ],
 ];
