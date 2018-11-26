@@ -15,6 +15,11 @@
  * @property string $icon
  * @property string $slug
  * @property integer $status
+ * @property string $city
+ * @property string $address
+ * @property string $sellerId
+ * @property string $dateTimeStart
+ * @property string $dateTimeEndRegistration
  */
 class Event extends yupe\models\YModel
 //class Event extends CActiveRecord
@@ -23,14 +28,21 @@ class Event extends yupe\models\YModel
      *
      */
     const STATUS_BLOCKED = 0;
+
     /**
      *
      */
     const STATUS_ACTIVE = 1;
+
     /**
      *
      */
     const STATUS_DELETED = 2;
+
+    /**
+     *
+     */
+    const STATUS_ENDED = 3;
 
 	/**
 	 * @return string the associated database table name
@@ -48,20 +60,26 @@ class Event extends yupe\models\YModel
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('name', 'required'),
+			array('name, city, dateTimeStart', 'required'),
 /*            [
                 'status, create_user_id, update_user_id, create_time, update_time',
                 'numerical',
                 'integerOnly' => true
             ],*/
+//            array('image', 'file', 'types'=>'jpg, gif, png', 'safe' => false),
 			array('create_user_id, update_user_id, status', 'numerical', 'integerOnly'=>true),
 			array('image', 'length', 'max'=>300),
+			array('sellerId', 'length', 'max'=>36),
 			array('name, icon', 'length', 'max'=>250),
 			array('slug', 'length', 'max'=>150),
 			array('description', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, create_user_id, update_user_id, create_time, update_time, image, name, description, icon, slug, status', 'safe', 'on'=>'search'),
+			array(
+			    'id, create_user_id, update_user_id, create_time, update_time, image, name, description, icon, slug, status, city, address, sellerId, dateTimeStart, dateTimeEndRegistration',
+                'safe',
+                'on'=>'search'
+            ),
 		);
 	}
 
@@ -93,6 +111,11 @@ class Event extends yupe\models\YModel
 			'icon' => 'Icon',
 			'slug' => 'Slug',
 			'status' => 'Status',
+			'city' => 'City',
+			'address' => 'Address',
+			'sellerId' => 'Id seller',
+			'dateTimeStart' => 'Start event date',
+			'dateTimeEndRegistration' => 'End registration date',
 		);
 	}
 
@@ -184,6 +207,7 @@ class Event extends yupe\models\YModel
             self::STATUS_BLOCKED => Yii::t('EventModule.event', 'Blocked'),
             self::STATUS_ACTIVE  => Yii::t('EventModule.event', 'Active'),
             self::STATUS_DELETED => Yii::t('EventModule.event', 'Removed'),
+            self::STATUS_ENDED => Yii::t('EventModule.event', 'Ended'),
         ];
     }
 
@@ -203,20 +227,38 @@ class Event extends yupe\models\YModel
     public function behaviors()
     {
         $module = Yii::app()->getModule('Event');
-
+//var_dump($module->uploadPath);
+//var_dump(Yii::app()->getTheme()->getAssetsUrl());
+//die;
         return [
-            'imageUpload'        => [
+/*            'imageUpload'        => [
                 'class'         => 'yupe\components\behaviors\ImageUploadBehavior',
                 'attributeName' => 'icon',
                 'minSize'       => $module->minSize,
                 'maxSize'       => $module->maxSize,
                 'types'         => $module->allowedExtensions,
                 'uploadPath'    => $module->uploadPath,
-                'defaultImage'  => Yii::app()->getTheme()->getAssetsUrl() . '/images/blog-default.jpg',
-            ],
+                'defaultImage'  => '/public'.Yii::app()->getTheme()->getAssetsUrl() . '/dist/img/avatar.png',
+            ],*/
             'CTimestampBehavior' => [
                 'class'             => 'zii.behaviors.CTimestampBehavior',
                 'setUpdateOnCreate' => true,
+            ],
+            'imageUpload' => [
+                'class' => 'yupe\components\behaviors\ImageUploadBehavior',
+                'attributeName' => 'image',
+                'minSize' => $module->minSize,
+                'maxSize' => $module->maxSize,
+                'types' => $module->allowedExtensions,
+                'uploadPath' => $module->uploadPath,
+                'resizeOptions' => [
+                    'width' => $module->width,
+                    'height' => $module->height,
+                    'quality' => [
+                        'jpeg_quality' => 100,
+                        'png_compression_level' => 3,
+                    ],
+                ]
             ],
         ];
     }

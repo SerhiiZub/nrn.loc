@@ -35,13 +35,15 @@ class EventBackendController extends application\modules\admin\components\AdminC
 
         if (Yii::app()->getRequest()->getPost('Event') !== null) {
             $model->setAttributes(Yii::app()->getRequest()->getPost('Event'));
-        
+//            $model->image=CUploadedFile::getInstance($model,'image');
+//            var_dump($model->image);die;
             if ($model->save()) {
                 Yii::app()->user->setFlash(
                     yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
                     Yii::t('EventModule.Event', 'Запись добавлена!')
                 );
 
+//                $model->image->saveAs(Yii::app()->uploadManager->getBasePath() . DIRECTORY_SEPARATOR);
                 $this->redirect(
                     (array)Yii::app()->getRequest()->getPost(
                         'submit-type',

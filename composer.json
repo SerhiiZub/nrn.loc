@@ -62,7 +62,8 @@
         "samdark/sitemap": "2.0.*",
         "ckeditor/ckeditor": "4.*",
         "wikimedia/composer-merge-plugin": "dev-master",
-        "facebook/graph-sdk": "^5.6"
+        "facebook/graph-sdk": "^5.6",
+        "kartik-v/yii2-widget-datetimepicker": "@dev"
     },
     "repositories": {
         

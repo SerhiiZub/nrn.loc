@@ -19,7 +19,7 @@ class m000000_000000_Event_base extends yupe\components\DbMigration
     public function safeUp()
     {
         $this->createTable(
-            '{{Event}}',
+            '{{event}}',
             [
                 'id'             => 'pk',
                 //для удобства добавлены некоторые базовые поля, которые могут пригодиться.

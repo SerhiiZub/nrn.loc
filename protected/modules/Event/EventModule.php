@@ -25,6 +25,9 @@ class EventModule  extends yupe\components\WebModule
      */
     public $uploadPath = 'events';
 
+    public $width = 100;
+    public $height = 100;
+
 
     const VERSION = '0.9.8';
 
@@ -210,6 +213,7 @@ class EventModule  extends yupe\components\WebModule
             [
                 'Event.models.*',
                 'Event.components.*',
+                'vendor.yiiext.taggable-behavior.*',
             ]
         );
     }
@@ -234,5 +238,15 @@ class EventModule  extends yupe\components\WebModule
                 ]
             ]
         ];
+    }
+
+    /**
+     * @return string
+     */
+    public function getUploadPath()
+    {
+        return Yii::getPathOfAlias('webroot') . DIRECTORY_SEPARATOR . Yii::app()->getModule(
+                "yupe"
+            )->uploadPath . DIRECTORY_SEPARATOR . $this->uploadPath;
     }
 }
