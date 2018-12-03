@@ -18,5 +18,6 @@ return [
     'rules'     => [
         '/Event' => 'Event/Event/index',
         '/' => 'Event/Event/index',
+        '/event/<id:\d+>' => 'Event/Event/view',
     ],
 ];

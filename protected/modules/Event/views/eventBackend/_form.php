@@ -353,5 +353,6 @@ echo $form->error($model, 'image');*/
             'label'      => Yii::t('EventModule.Event', 'Сохранить Мероприятие и закрыть'),
         ]
     ); ?>
+    <a href="<?php echo Yii::app()->createUrl('/admin/races/create', ['event' => $model->id])?>">Создать забег для: <?= $model->id?></a>
 
 <?php $this->endWidget(); ?>

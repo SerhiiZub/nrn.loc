@@ -58,5 +58,3 @@ $this->menu = [
         'status',
     ],
 ]); ?>
-
-<?php //var_dump($model->races)?>

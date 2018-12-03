@@ -6,7 +6,7 @@
  * Time: 17:11
  */
 
-//var_dump($models);
+//var_dump($models);die;
 ?>
 <?php //var_dump($this)?>
 
@@ -36,11 +36,13 @@
                     <p>
                         <?php echo $model->description?>
                     </p>
+                    <div class="block">Test</div>
                 </div>
             </div>
             <div class="row">
                 <div class="event-detail col-sm-12">
-                    <a href="#" class="btn btn-success pull-right">Detail</a>
+                    <a href="<?php echo Yii::app()->createUrl('event/'.$model->id);?>" class="btn btn-success pull-right">Detail</a><!--                    <a href="--><?php //echo Yii::app()->createUrl('event/view', array('id' => $model->id));?><!--" class="btn btn-success pull-right">Detail</a>-->
+<!--                    <a href="--><?php //echo $this->createUrl('event/view/'.$model->id);?><!--" class="btn btn-success pull-right">Detail</a>-->
                 </div>
             </div>
         </div>

@@ -28,8 +28,13 @@
 //                                    array('label'=>'Level 4 Two', 'url'=>array('product/index')),
                                 ]),
 //                                array('label'=>Menu::link('Users', 'fa fa-user-cog'), 'url'=>array('default/index')),
-                                array('label'=>Menu::link('Events', 'fa fa-users'), 'url'=>array('/admin/default/index')),
-                                array('label'=>Menu::link('Sprints', 'fa running'), 'url'=>array('/admin/default/index')),
+                                array('label'=>Menu::link('Events', 'fa fa-users'), 'url'=>array('/admin/events/index')),
+                                array('label'=>Menu::link('Races', 'fa running'), 'url'=>array('/admin/races/index')),
+                                array('label'=>Menu::link('Members', 'fa running'), 'url'=>array('/admin/members/index')),
+                                array('label'=>Menu::link('Promo codes', 'fa running'), 'url'=>array('/admin/promoCodes/index')),
+                                array('label'=>Menu::link('Payments', 'fa running'), 'url'=>array('/backend/payment/payment')),
+                                array('label'=>Menu::link('Race types', 'fa running'), 'url'=>array('/admin/raceTypes')),
+                                array('label'=>Menu::link('Race age categories', 'fa running'), 'url'=>array('/admin/raceAges')),
                             ),
                     )); ?>
 

@@ -16,13 +16,7 @@ class EventController extends \yupe\components\controllers\FrontController
     public function init()
     {
         parent::init();
-//        Yii::app()->theme = 'sportEvents';
-//        $this->layout = 'main';
         $this->layout =  'themes.sportEvents.views.layouts.column2';
-//        $this->layout =  'themes.sportEvents.views.layouts.sport_event';
-//        $this->layout =  'themes.sportEvents.views.layouts.yupe';
-//        $this->layout =  'themes.sportEvents.views.layouts.main';
-//        $this->layout =  'themes.sportEvents.views.layouts.column2';
     }
     /**
      * Действие "по умолчанию"
@@ -31,13 +25,41 @@ class EventController extends \yupe\components\controllers\FrontController
      */
 	public function actionIndex()
 	{
-//	    var_dump($this);
         $this->breadcrumbs = 'Events';
         $model = new Event('search');
         $model->unsetAttributes(); // clear any default values
         if (Yii::app()->getRequest()->getParam('Event') !== null)
             $model->setAttributes(Yii::app()->getRequest()->getParam('Event'));
         $this->render('index', ['model' => $model->findAll()]);
-//		$this->render('index');
 	}
+
+    /**
+     * Отображает Мероприятие по указанному идентификатору
+     *
+     * @param integer $id Идинтификатор Мероприятие для отображения
+     *
+     * @return void
+     */
+    public function actionView($id)
+    {
+        $this->render('view', ['model' => $this->loadModel($id)]);
+    }
+
+
+    /**
+     * Возвращает модель по указанному идентификатору
+     * Если модель не будет найдена - возникнет HTTP-исключение.
+     *
+     * @param integer идентификатор нужной модели
+     *
+     * @return void
+     */
+    public function loadModel($id)
+    {
+        $model = Event::model()->findByPk($id);
+        if ($model === null)
+            throw new CHttpException(404, Yii::t('EventModule.Event', 'Запрошенная страница не найдена.'));
+
+        return $model;
+    }
 }

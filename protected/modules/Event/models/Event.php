@@ -91,6 +91,7 @@ class Event extends yupe\models\YModel
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+		    'races' => [self::HAS_MANY, 'Races', 'event_id']
 		);
 	}
 
