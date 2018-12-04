@@ -19,5 +19,7 @@ return [
         '/Event' => 'Event/Event/index',
         '/' => 'Event/Event/index',
         '/event/<id:\d+>' => 'Event/Event/view',
+        '/race/<id:\d+>' => 'Event/Race/view',
+        '/races/<id:\d+>' => 'Event/Race/view',
     ],
 ];

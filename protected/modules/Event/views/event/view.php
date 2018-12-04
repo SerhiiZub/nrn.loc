@@ -42,7 +42,7 @@ $this->menu = [
     </h1>
 </div>
 
-<?php $this->widget('bootstrap.widgets.TbDetailView', [
+<?php /*$this->widget('bootstrap.widgets.TbDetailView', [
     'data'       => $model,
     'attributes' => [
         'id',
@@ -57,4 +57,8 @@ $this->menu = [
         'slug',
         'status',
     ],
+]); */?>
+
+<?php $this->widget('application.modules.Event.widgets.RaceWidget',[
+         'data' => $model,
 ]); ?>
