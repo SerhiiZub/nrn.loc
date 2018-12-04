@@ -27,6 +27,10 @@
 class EventMembers extends yupe\models\YModel
 //class EventMembers extends CActiveRecord
 {
+    const MALE = 1;
+
+    const FEMALE = 2;
+
 	/**
 	 * @return string the associated database table name
 	 */
@@ -43,7 +47,7 @@ class EventMembers extends yupe\models\YModel
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('event_id, rece_id, first_name, last_name, email, phone, b_date, sex, city, create_user_id, update_user_id, create_time, update_time', 'required'),
+			array('first_name, last_name, email, phone, b_date, sex, city', 'required'),
 			array('phone, sex, status', 'numerical', 'integerOnly'=>true),
 			array('event_id, rece_id, create_user_id, update_user_id', 'length', 'max'=>11),
 			array('first_name, last_name, midle_name, email, alternative_contact, promo_code', 'length', 'max'=>255),
@@ -191,5 +195,26 @@ class EventMembers extends yupe\models\YModel
                 ]
             ],
         ];
+    }
+
+    /**
+     * @return array
+     */
+    public function getSexList()
+    {
+        return [
+            self::MALE => Yii::t('EventModule.event', 'male'),
+            self::FEMALE  => Yii::t('EventModule.event', 'female'),
+        ];
+    }
+
+    /**
+     * @return string
+     */
+    public function getSex()
+    {
+        $data = $this->getSexList();
+
+        return isset($data[$this->sex]) ? $data[$this->sex] : Yii::t('EventModule.event', '*unknown*');
     }
 }

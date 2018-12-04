@@ -25,14 +25,17 @@
 <div class="tab-content race-tab-content">
     <div id="race-info" class="tab-pane fade in active">
         <div class="race-tab-item">
-            <h3>Информация</h3>
+            <h3><?php echo $model->title?></h3>
             <div class="">
-                <p style="">Some content.</p>
+                <p style=""><?php echo $model->description?></p>
                 <?php $this->widget('application.modules.Event.widgets.RaceInfoWidget',[]); ?>
             </div>
             <div>
-<!--                member_registration_widget-->
-                <?php $this->widget('application.modules.Event.widgets.MemberRegistrationWidget',[]); ?>
+                <?php $this->widget('application.modules.Event.widgets.MemberRegistrationWidget',[
+                    'race_id' => $model->id,
+                    'event_id' => $model->event_id,
+                    'memberModel' => $memberModel,
+                ]); ?>
             </div>
         </div>
     </div>

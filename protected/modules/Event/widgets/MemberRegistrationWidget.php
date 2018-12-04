@@ -23,6 +23,10 @@ class MemberRegistrationWidget extends yupe\widgets\YWidget
      */
     public $view = 'member_registration_widget';
 
+    public $race_id;
+    public $event_id;
+    public $memberModel;
+
     public $data;
 
     public function init()
@@ -41,7 +45,14 @@ class MemberRegistrationWidget extends yupe\widgets\YWidget
      */
     public function run()
     {
-        $this->render($this->view, []);
+//        CModel::scenario;
+//        if (!empty($this->memberModel)){
+//
+//        }
+        $model = !empty($this->memberModel) ? $this->memberModel : new EventMembers();
+        $model->event_id = $this->event_id;
+        $model->rece_id = $this->race_id;
+        $this->render($this->view, ['model' => $model]);
 /*        if (!empty($this->data->races)){
             $this->render($this->view, [
                 'event' => $this->data,

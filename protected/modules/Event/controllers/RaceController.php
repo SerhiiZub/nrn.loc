@@ -43,7 +43,29 @@ class RaceController extends \yupe\components\controllers\FrontController
      */
     public function actionView($id)
     {
-        $this->render('view', ['model' => $this->loadModel($id)]);
+        $model = new EventMembers;
+
+        if (Yii::app()->getRequest()->getPost('EventMembers') !== null) {
+            $model->setAttributes(Yii::app()->getRequest()->getPost('EventMembers'));
+
+            if ($model->save()) {
+                Yii::app()->user->setFlash(
+                    yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
+                    Yii::t('EventModule.Event', 'Запись добавлена!')
+                );
+
+                $this->redirect(
+                    (array)Yii::app()->getRequest()->getPost(
+                        'submit-type',
+                        [
+                            'update',
+                            'id' => $model->id
+                        ]
+                    )
+                );
+            }
+        }
+        $this->render('view', ['model' => $this->loadModel($id), 'memberModel' => $model ]);
     }
 
 
@@ -57,7 +79,7 @@ class RaceController extends \yupe\components\controllers\FrontController
      */
     public function loadModel($id)
     {
-        $model = Event::model()->findByPk($id);
+        $model = Races::model()->findByPk($id);
         if ($model === null)
             throw new CHttpException(404, Yii::t('EventModule.Event', 'Запрошенная страница не найдена.'));
 
