@@ -12,12 +12,11 @@ $this->widget(
             Yii::app()->getTheme()->getAssetsUrl() . '/images/logo.png',
             Yii::app()->name,
             [
-                'width' => '38',
-                'height' => '38',
-                'title' => Yii::app()->name,
+                'height' => '48',
+                'style' => 'margin-top: -12px;',
             ]
         ),
-        'brandUrl' => Yii::app()->hasModule('homepage') ? ['/homepage/hp/index'] : ['/site/index'],
+        'brandUrl' => Yii::app()->hasModule('homepage') ? ['/'] : ['/site/index'],
         'items' => [
             [
                 'class' => 'bootstrap.widgets.TbMenu',
