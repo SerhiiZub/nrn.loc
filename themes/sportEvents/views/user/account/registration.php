@@ -1,4 +1,9 @@
 <?php
+/**
+ * @var $userModel User
+ * @var $model RegistrationForm
+ */
+
 $this->title = Yii::t('UserModule.user', 'Sign up');
 $this->breadcrumbs = [Yii::t('UserModule.user', 'Sign up')];
 ?>
@@ -12,7 +17,11 @@ $this->breadcrumbs = [Yii::t('UserModule.user', 'Sign up')];
                 <button type="submit" class="btn btn-primary">Log in with Facebook</button>
             </div>
             </div>
-            <?php $form = $this->beginWidget(
+            <?php
+            /**
+             * @var $form TbActiveForm
+             */
+            $form = $this->beginWidget(
                 'bootstrap.widgets.TbActiveForm',
                 [
                     'id' => 'registration-form',
@@ -67,13 +76,17 @@ $this->breadcrumbs = [Yii::t('UserModule.user', 'Sign up')];
             </div>
             <div class="row">
                 <div class="col-sm-6">
+                    <?php
+                    $genderList = $userModel->getGendersList();
+                    unset($genderList[$userModel::GENDER_THING])?>
                     <?= $form->dropDownListGroup(
                         $model,
                         'gender',
                         [
                             'widgetOptions' => [
-                                'data'        => $model->getGenderList(),
+                                'data'        => $genderList,
                                 'htmlOptions' => [
+                                    'empty' => $userModel->getGender(),
                                     'class'               => 'popover-help',
                                     'data-original-title' => $model->getAttributeLabel('gender'),
                                     'data-content'        => $model->getAttributeDescription('gender'),
@@ -88,8 +101,9 @@ $this->breadcrumbs = [Yii::t('UserModule.user', 'Sign up')];
                         't_shirt_size',
                         [
                             'widgetOptions' => [
-                                'data'        => array_merge([''], $model->getTShirtSizeList()),
+                                'data'        => $model->getTShirtSizeList(),
                                 'htmlOptions' => [
+                                    'empty' => 'не указан',
                                     'class'               => 'popover-help',
                                     'data-original-title' => $model->getAttributeLabel('t_shirt_size'),
                                     'data-content'        => $model->getAttributeDescription('t_shirt_size'),
@@ -113,12 +127,21 @@ $this->breadcrumbs = [Yii::t('UserModule.user', 'Sign up')];
                     <?= $form->textFieldGroup($model, 'alternative_contact'); ?>
                 </div>
             </div>
+
             <div class="row">
+                <div class="col-sm-6">
+                    <?= $form->passFieldGroup($model, 'password');?>
+                </div>
+                <div class="col-sm-6">
+                    <?= $form->passwordFieldGroup($model, 'cPassword');?>
+                </div>
+            </div>
+            <div class="row"></div>
             <div class="row">
                 <div class="col-sm-12">
                     <?= $form->fileFieldGroup(
                         $model,
-                        'image',
+                        'avatar',
                         [
                             'widgetOptions' => [
                                 'htmlOptions' => [
