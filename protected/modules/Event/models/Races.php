@@ -61,6 +61,7 @@ class Races extends yupe\models\YModel
 		    'userCreated' => [self::HAS_ONE, 'User', 'create_user_id'],
 		    'userUpdate' => [self::HAS_ONE, 'User', 'update_user_id'],
 		    'event' => [self::BELONGS_TO, 'Event', 'event_id'],
+		    'members' => [self::HAS_MANY, 'EventMembers', ['race_id', 'event_id']],
 		);
 	}
 
@@ -175,5 +176,12 @@ class Races extends yupe\models\YModel
                 ]
             ],
         ];
+    }
+
+    public function getCountMembers(){
+        if (!$this->id){
+            return '';
+        }
+        return count($this->members);
     }
 }
