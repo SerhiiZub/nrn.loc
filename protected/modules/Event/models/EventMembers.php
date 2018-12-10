@@ -24,7 +24,7 @@
  * @property string $update_time
  * @property string $image
  */
-class EventMembers extends yupe\models\YModel
+class  EventMembers extends yupe\models\YModel
 //class EventMembers extends CActiveRecord
 {
     const MALE = 1;
@@ -47,7 +47,7 @@ class EventMembers extends yupe\models\YModel
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('first_name, last_name, email, phone, b_date, sex, city', 'required'),
+			array('event_id, rece_id, first_name, last_name, email, phone, b_date, sex, city', 'required'),
 			array('phone, sex, status', 'numerical', 'integerOnly'=>true),
 			array('event_id, rece_id, create_user_id, update_user_id', 'length', 'max'=>11),
 			array('first_name, last_name, midle_name, email, alternative_contact, promo_code', 'length', 'max'=>255),
@@ -67,6 +67,7 @@ class EventMembers extends yupe\models\YModel
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+            'races' => [self::HAS_ONE, 'Races', ['id' => 'rece_id']]
 		);
 	}
 
