@@ -22,11 +22,11 @@ $form = $this->beginWidget(
 );
 ?>
 
-    <div class="alert alert-info">
-        <?=  Yii::t('EventModule.Event', 'Поля, отмеченные'); ?>
-        <span class="required">*</span>
-        <?=  Yii::t('EventModule.Event', 'обязательны.'); ?>
-    </div>
+<!--    <div class="alert alert-info">-->
+<!--        --><?//=  Yii::t('EventModule.Event', 'Поля, отмеченные'); ?>
+<!--        <span class="required">*</span>-->
+<!--        --><?//=  Yii::t('EventModule.Event', 'обязательны.'); ?>
+<!--    </div>-->
 
 <?=  $form->errorSummary($model); ?>
     <div class="row">
@@ -97,7 +97,7 @@ $form = $this->beginWidget(
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-7">
+        <div class="col-sm-12">
 <!--            --><?//=  $form->datePickerGroup($model,'b_date', [
 //                'widgetOptions'=>[
 //                    'options' => [],
@@ -109,31 +109,10 @@ $form = $this->beginWidget(
                     'model' => $model,
                 'attribute' => 'b_date',
                 ]);?>
-<!--            --><?php // $ts = strtotime('now');?>
-<!--            --><?php //list($day, $month, $year) = array(date('j',$ts), date('n',$ts), date('Y',$ts));?>
-<!--            --><?// echo CHtml::activeDropDownList($model, 'b_date', CHtml::listData($day, 'id', 'name')); ?>
-<!---->
-<!--            --><?// echo CHtml::activeDropDownList($model, 'b_date', CHtml::listData($month, 'id', 'name')); ?>
-<!---->
-<!--            --><?// echo CHtml::activeDropDownList($model, 'b_date', CHtml::listData($year, 'id', 'name')); ?>
-<!--            --><?php
-
-//            $this->widget('zii.widgets.jui.CJuiDatePicker', array(
-//                'name'=>'b_date',
-//                'model'=>$model,
-//                'attribute'=>'b_date',
-//                'options'=>array(
-//                    'showAnim'=>'fold',
-//                ),
-//                'htmlOptions'=>array(
-//                    'style'=>'height:20px;'
-//                ),
-//            ));
-//            ?>
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-7">
+        <div class="col-sm-6">
             <?= $form->dropDownListGroup(
                 $model,
                 'sex',
@@ -149,9 +128,9 @@ $form = $this->beginWidget(
                 ]
             ); ?>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-7">
+<!--    </div>
+    <div class="row">-->
+        <div class="col-sm-6">
             <?=  $form->textFieldGroup($model, 'city', [
                 'widgetOptions' => [
                     'htmlOptions' => [
@@ -164,7 +143,7 @@ $form = $this->beginWidget(
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-7">
+        <div class="col-sm-12">
             <?=  $form->textFieldGroup($model, 'alternative_contact', [
                 'widgetOptions' => [
                     'htmlOptions' => [
@@ -202,6 +181,12 @@ $form = $this->beginWidget(
             ]); ?>
         </div>
     </div>
+<?php
+    echo $form->hiddenField($model, 'event_id');
+    echo $form->hiddenField($model, 'race_id');
+//    var_dump($model);
+//    $form->hiddenField($model, 'event_id', ['value' => $this->event_id])
+?>
 
 <?php $this->widget(
     'bootstrap.widgets.TbButton', [

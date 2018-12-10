@@ -344,9 +344,9 @@ abstract class CModel extends CComponent implements IteratorAggregate, ArrayAcce
 	 */
 	public function hasErrors($attribute=null)
 	{
-		if($attribute===null)
-			return $this->_errors!==array();
-		else
+		if($attribute===null){
+            return $this->_errors!==array();
+        } else
 			return isset($this->_errors[$attribute]);
 	}
 

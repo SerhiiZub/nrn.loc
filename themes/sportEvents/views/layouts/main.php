@@ -41,24 +41,16 @@
 <?php \yupe\components\TemplateEvent::fire(SportEventsThemeEvents::BODY_START);?>
 
 <?php if (Yii::app()->hasModule('menu')): ?>
-
     <?php $this->widget('application.modules.menu.widgets.MenuWidget', ['name' => 'top-menu']); ?>
-    <h3>menu</h3>
 <?php endif; ?>
+
 <!-- container -->
 <div class='container'>
-    <!-- flashMessages -->
-    <!-- breadcrumbs -->
-    <?php /*$this->widget(
-        'bootstrap.widgets.TbBreadcrumbs',
-        [
-            'links' => $this->breadcrumbs,
-        ]
-    );*/?>
-<!--    <h1>Front theme</h1>-->
-
+    <!--    content header-->
+    <div class="page-header">
+    </div>
+    <!--    content header end-->
     <div class="row">
-<!--        --><?php //var_dump(__FILE__)?>
         <?= $content; ?>
     </div>
     <!-- footer -->

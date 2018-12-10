@@ -119,7 +119,7 @@ return [
     'Email was updated.' => 'Email был изменен.',
     'Email with activate_key = {activate_key}, id = {id} was activated!' => 'Активирован e-mail с activate_key = {activate_key}, id = {id}!',
     'Email' => 'Email',
-    'Email/Login' => 'Имя пользователя или Email',
+    'Email/Login' => 'Електронна пошта',
     'Empty avatar' => 'Пустой аватар',
     'Enter an email you have used during signup' => 'Введите email, указанный при регистрации',
     'Error when change password automaticly! {error}' => 'Ошибка при автоматической смене пароля {error}!',

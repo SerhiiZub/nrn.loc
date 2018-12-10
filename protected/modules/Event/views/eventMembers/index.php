@@ -66,7 +66,7 @@ $this->menu = [
         'columns'      => [
             'id',
             'event_id',
-            'rece_id',
+            'race_id',
             'first_name',
             'last_name',
             'midle_name',

@@ -4,6 +4,9 @@
  * User: Serdg
  * Date: 003 03.12.18
  * Time: 23:53
+ *
+ * @var Races $model
+ * @var EventMembers $memberModel
  */
 
 ?>
@@ -42,22 +45,22 @@
     <div id="race-regulations" class="tab-pane fade">
         <div class="race-tab-item">
             <h3>Регламент</h3>
-            <p>Some content in menu 1.</p>
             <?php $this->widget('application.modules.Event.widgets.RaceRegulationsWidget',[]); ?>
         </div>
     </div>
     <div id="race-route" class="tab-pane fade">
         <div class="race-tab-item">
             <h3>Маршрут</h3>
-            <p>Some content in menu 2.</p>
             <?php $this->widget('application.modules.Event.widgets.RaceRouteWidget',[]); ?>
         </div>
     </div>
     <div id="race-members" class="tab-pane fade">
         <div class="race-tab-item">
-            <h3>Участники</h3>
-            <p>Some content in menu 2.</p>
-            <?php $this->widget('application.modules.Event.widgets.RaceMembersWidget',[]); ?>
+            <h3>Участники: <?=$model->getCountMembers();?> </h3>
+            <?php $this->widget('application.modules.Event.widgets.RaceMembersWidget',[
+                'race_id' => $model->id,
+                'event_id' => $model->event_id,
+            ]); ?>
         </div>
     </div>
 </div>

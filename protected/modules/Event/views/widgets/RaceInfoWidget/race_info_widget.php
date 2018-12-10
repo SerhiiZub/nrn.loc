@@ -6,4 +6,4 @@
  * Time: 1:22
  */
 ?>
-<h2>race info</h2>
+<!--<h2>race info</h2>-->

@@ -80,5 +80,6 @@ return [
         '/profile' => 'user/profile/profile',
         '/profile/password' => 'user/profile/password',
         '/profile/email' => 'user/profile/email',
+        '/profile/update' => 'user/profile/update',
     ],
 ];

@@ -61,6 +61,9 @@ class ProfileController extends \yupe\components\controllers\FrontController
     {
         return [
             'profile' => [
+                'class' => 'application.modules.user.controllers.profile.ViewAction'
+            ],
+            'update' => [
                 'class' => 'application.modules.user.controllers.profile.ProfileAction'
             ],
             'password' => [

@@ -21,9 +21,9 @@ body{
 }
 
 .event-name{
-    font-size: 25px;
+    font-size: 17px;
     font-weight: bold;
-    padding-left: 30px;
+    padding-left: 10px;
     text-transform: capitalize;
     color: rgba(26, 26, 26, 0.78);
 }
@@ -56,6 +56,14 @@ body{
     font-size: x-large;
     color: darkblue;
     box-shadow: 5px 0px 5px rgba(0,0,0,0.1);
+}
+
+.event-filters{
+    padding: 20px;
+    margin-bottom: 20px;
+}
+.event-filters button{
+    width: 100%;
 }
 /*EVENTS end*/
 
@@ -95,6 +103,12 @@ body{
     min-height: 300px;
 }
 /*RACES end*/
+
+/*PROFILE*/
+.my-profile{
+    margin-bottom: 20px;
+}
+/*PROFILE end*/
 
 
 

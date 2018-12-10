@@ -45,12 +45,12 @@ $form = $this->beginWidget(
     </div>
     <div class="row">
         <div class="col-sm-7">
-            <?=  $form->textFieldGroup($model, 'rece_id', [
+            <?=  $form->textFieldGroup($model, 'race_id', [
                 'widgetOptions' => [
                     'htmlOptions' => [
                         'class' => 'popover-help',
-                        'data-original-title' => $model->getAttributeLabel('rece_id'),
-                        'data-content' => $model->getAttributeDescription('rece_id')
+                        'data-original-title' => $model->getAttributeLabel('race_id'),
+                        'data-content' => $model->getAttributeDescription('race_id')
                     ]
                 ]
             ]); ?>

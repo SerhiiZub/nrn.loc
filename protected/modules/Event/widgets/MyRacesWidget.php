@@ -41,7 +41,7 @@ class MyRacesWidget extends yupe\widgets\YWidget
         }
         $user =Yii::app()->user->getProfile();
         $criteria = new CDbCriteria();
-        $criteria->select = 't.rece_id';
+        $criteria->select = 't.race_id';
         $criteria->addCondition('create_user_id = :id');
         $criteria->params[':id'] = $user->id;
 

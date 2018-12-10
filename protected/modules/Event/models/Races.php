@@ -8,6 +8,7 @@
  * @property string $event_id
  * @property string $title
  * @property string $description
+ * @property string $start_number_prefix
  * @property integer $status
  * @property string $type_Id
  * @property string $age_category_id
@@ -36,10 +37,11 @@ class Races extends yupe\models\YModel
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('event_id, title, type_Id, age_category_id', 'required'),
+			array('event_id, title, type_Id, age_category_id, start_number_prefix', 'required'),
 			array('status', 'numerical', 'integerOnly'=>true),
 			array('event_id, type_Id, age_category_id, create_user_id, update_user_id', 'length', 'max'=>11),
 			array('title', 'length', 'max'=>150),
+			array('start_number_prefix', 'length', 'max'=>10),
 			array('image', 'length', 'max'=>300),
 			array('description', 'safe'),
 			// The following rule is used by search().
@@ -75,6 +77,7 @@ class Races extends yupe\models\YModel
 			'event_id' => 'Event',
 			'title' => 'заголовок',
 			'description' => 'описание',
+			'start_number_prefix' => 'префикс номера участника',
 			'status' => 'статус',
 			'type_Id' => 'тип забега',
 			'age_category_id' => 'возрастная категория',
@@ -108,6 +111,7 @@ class Races extends yupe\models\YModel
 		$criteria->compare('event_id',$this->event_id,true);
 		$criteria->compare('title',$this->title,true);
 		$criteria->compare('description',$this->description,true);
+		$criteria->compare('start_number_prefix',$this->start_number_prefix,true);
 		$criteria->compare('status',$this->status);
 		$criteria->compare('type_Id',$this->type_Id,true);
 		$criteria->compare('age_category_id',$this->age_category_id,true);

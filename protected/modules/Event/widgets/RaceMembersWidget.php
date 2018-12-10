@@ -23,6 +23,10 @@ class RaceMembersWidget extends yupe\widgets\YWidget
      */
     public $view = 'race_members_widget';
 
+    public $race_id;
+
+    public $event_id;
+
     public $data;
 
     public function init()
@@ -35,6 +39,11 @@ class RaceMembersWidget extends yupe\widgets\YWidget
      */
     public function run()
     {
-        $this->render($this->view, []);
+        $criteria = new CDbCriteria();
+        $criteria->addCondition('race_id = :race_id');
+        $criteria->addCondition('event_id = :event_id');
+        $criteria->params = [':race_id' => $this->race_id, ':event_id' => $this->event_id];
+        $members = EventMembers::model()->findAll($criteria);
+        $this->render($this->view, ['members' => $members]);
     }
 }

@@ -6,7 +6,8 @@
  * The followings are the available columns in table '{{event_members}}':
  * @property string $id
  * @property string $event_id
- * @property string $rece_id
+ * @property string $race_id
+ * @property string $start_number
  * @property string $first_name
  * @property string $last_name
  * @property string $midle_name
@@ -15,6 +16,9 @@
  * @property string $b_date
  * @property integer $sex
  * @property string $city
+ * @property string $club
+ * @property string $command
+ * @property string $user_id
  * @property string $alternative_contact
  * @property integer $status
  * @property string $promo_code
@@ -47,15 +51,15 @@ class  EventMembers extends yupe\models\YModel
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('event_id, rece_id, first_name, last_name, email, phone, b_date, sex, city', 'required'),
+			array('event_id, race_id, first_name, last_name, email, phone, b_date, sex, city, user_id, start_number', 'required'),
 			array('phone, sex, status', 'numerical', 'integerOnly'=>true),
-			array('event_id, rece_id, create_user_id, update_user_id', 'length', 'max'=>11),
+			array('event_id, race_id, create_user_id, update_user_id, start_number', 'length', 'max'=>11),
 			array('first_name, last_name, midle_name, email, alternative_contact, promo_code', 'length', 'max'=>255),
-			array('city', 'length', 'max'=>100),
+			array('city, club, command', 'length', 'max'=>100),
 			array('image', 'length', 'max'=>300),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, event_id, rece_id, first_name, last_name, midle_name, email, phone, b_date, sex, city, alternative_contact, status, promo_code, create_user_id, update_user_id, create_time, update_time, image', 'safe', 'on'=>'search'),
+			array('id, event_id, race_id, first_name, last_name, midle_name, email, phone, b_date, sex, city, alternative_contact, status, promo_code, create_user_id, update_user_id, create_time, update_time, image, club, command, start_number', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -67,7 +71,8 @@ class  EventMembers extends yupe\models\YModel
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-            'races' => [self::HAS_ONE, 'Races', ['id' => 'rece_id']]
+            'races' => [self::HAS_ONE, 'Races', ['id' => 'race_id']],
+            'user' => [self::HAS_ONE, 'User', ['id' => 'user_id']],
 		);
 	}
 
@@ -79,7 +84,7 @@ class  EventMembers extends yupe\models\YModel
 		return array(
 			'id' => 'ID',
 			'event_id' => 'Event',
-			'rece_id' => 'Rece',
+			'race_id' => 'Rece',
 			'first_name' => 'Имя',
 			'last_name' => 'Фамилия',
 			'midle_name' => 'Отчество',
@@ -88,6 +93,9 @@ class  EventMembers extends yupe\models\YModel
 			'b_date' => 'Дата рождения',
 			'sex' => 'Пол',
 			'city' => 'Город',
+			'club' => 'Клуб',
+			'command' => 'Команда',
+			'user_id' => 'Участник',
 			'alternative_contact' => 'Контакт в случае проблем',
 			'status' => 'Статус',
 			'promo_code' => 'Промо код',
@@ -119,7 +127,7 @@ class  EventMembers extends yupe\models\YModel
 
 		$criteria->compare('id',$this->id,true);
 		$criteria->compare('event_id',$this->event_id,true);
-		$criteria->compare('rece_id',$this->rece_id,true);
+		$criteria->compare('race_id',$this->race_id,true);
 		$criteria->compare('first_name',$this->first_name,true);
 		$criteria->compare('last_name',$this->last_name,true);
 		$criteria->compare('midle_name',$this->midle_name,true);
@@ -128,6 +136,9 @@ class  EventMembers extends yupe\models\YModel
 		$criteria->compare('b_date',$this->b_date,true);
 		$criteria->compare('sex',$this->sex);
 		$criteria->compare('city',$this->city,true);
+		$criteria->compare('club',$this->club,true);
+		$criteria->compare('command',$this->command,true);
+		$criteria->compare('user_id',$this->user_id,true);
 		$criteria->compare('alternative_contact',$this->alternative_contact,true);
 		$criteria->compare('status',$this->status);
 		$criteria->compare('promo_code',$this->promo_code,true);
@@ -204,8 +215,8 @@ class  EventMembers extends yupe\models\YModel
     public function getSexList()
     {
         return [
-            self::MALE => Yii::t('EventModule.event', 'male'),
-            self::FEMALE  => Yii::t('EventModule.event', 'female'),
+            self::MALE => Yii::t('EventModule.event', 'чоловік'),
+            self::FEMALE  => Yii::t('EventModule.event', 'жінка'),
         ];
     }
 
@@ -217,5 +228,19 @@ class  EventMembers extends yupe\models\YModel
         $data = $this->getSexList();
 
         return isset($data[$this->sex]) ? $data[$this->sex] : Yii::t('EventModule.event', '*unknown*');
+    }
+
+    public function getYear()
+    {
+        if (!$this->id){
+            return '';
+        }
+        return DateTime::createFromFormat('Y-m-d', $this->b_date)->format('Y');
+//        return (new DateTime($this->b_date))->format('Y');
+    }
+
+    public function getAge()
+    {
+        return DateTime::createFromFormat('Y-m-d', $this->b_date)->diff(new DateTime('now'))->y;
     }
 }

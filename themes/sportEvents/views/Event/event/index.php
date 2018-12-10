@@ -20,11 +20,6 @@ $this->pageTitle = Yii::t('EventModule.Event', 'Event - index');
 $this->menu = $this->getModule()->getNavigation();
 ?>
 
-<div class="page-header">
-    <h1>
-        <?php echo Yii::t('EventModule.Event', 'Event'); ?>
-        <small><?php echo Yii::t('EventModule.Event', 'Index'); ?></small>
-    </h1>
-</div>
+
 
 <?php $this->widget('application.modules.Event.widgets.EventWidget'); ?>

@@ -32,6 +32,7 @@ class EventMembersBackendController extends application\modules\admin\components
     public function actionCreate()
     {
         $model = new EventMembers;
+        $model = EventMembers::model();
 
         if (Yii::app()->getRequest()->getPost('EventMembers') !== null) {
             $model->setAttributes(Yii::app()->getRequest()->getPost('EventMembers'));

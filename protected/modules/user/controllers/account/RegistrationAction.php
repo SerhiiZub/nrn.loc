@@ -63,7 +63,7 @@ class RegistrationAction extends CAction
             }
         }
 
-        $this->getController()->render('registration', ['model' => $form, 'module' => $module]);
+        $this->getController()->render('registration', ['model' => $form, 'module' => $module, 'userModel' => (new User())]);
     }
 
     /**

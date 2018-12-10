@@ -126,7 +126,7 @@ class User extends yupe\models\YModel
             ['location', 'length', 'max' => 150],
             ['gender, status, access_level', 'numerical', 'integerOnly' => true],
             ['gender', 'default', 'value' => self::GENDER_THING, 'setOnEmpty' => true],
-            [
+/*            [
                 'nick_name',
                 'match',
                 'pattern' => '/^[A-Za-z0-9_-]{2,50}$/',
@@ -134,15 +134,15 @@ class User extends yupe\models\YModel
                     'UserModule.user',
                     'Bad field format for "{attribute}". You can use only letters and digits from 2 to 20 symbols'
                 )
-            ],
+            ],*/
             ['site', 'url', 'allowEmpty' => true],
             ['email', 'email'],
             ['email', 'unique', 'message' => Yii::t('UserModule.user', 'This email already use by another user')],
-            [
+/*            [
                 'nick_name',
                 'unique',
                 'message' => Yii::t('UserModule.user', 'This nickname already use by another user')
-            ],
+            ],*/
             [
                 'avatar',
                 'file',

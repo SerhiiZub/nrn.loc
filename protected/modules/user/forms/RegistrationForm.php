@@ -12,16 +12,35 @@ use yupe\widgets\YPurifier;
  * @link     http://yupe.ru
  *
  **/
-class RegistrationForm extends CFormModel
+class RegistrationForm extends \yupe\models\YFormModel
+//class RegistrationForm extends CFormModel
 {
 
-    public $nick_name;
+    public $first_name;
+    public $last_name;
+    public $middle_name;
     public $email;
+    public $phone;
+    public $birthday;
+    public $gender;
+    public $country;
+    public $city;
+    public $alternative_contact;
+    public $t_shirt_size;
+    public $club;
+    public $team;
+    public $info;
+    public $avatar;
+
     public $password;
     public $cPassword;
+
     public $verifyCode;
 
     public $disableCaptcha = false;
+
+    const MALE = 'male';
+    const FEMALE = 'female';
 
     public function isCaptchaEnabled()
     {
@@ -39,21 +58,25 @@ class RegistrationForm extends CFormModel
         $module = Yii::app()->getModule('user');
 
         return [
-            ['nick_name, email', 'filter', 'filter' => 'trim'],
-            ['nick_name, email', 'filter', 'filter' => [new YPurifier(), 'purify']],
-            ['nick_name, email, password, cPassword', 'required'],
-            ['nick_name, email', 'length', 'max' => 50],
+            ['first_name, last_name, middle_name, email, phone, city', 'filter', 'filter' => 'trim'],
+//            ['nick_name, email', 'filter', 'filter' => 'trim'],
+            ['first_name, last_name, middle_name, email, phone, city', 'filter', 'filter' => [new YPurifier(), 'purify']],
+//            ['nick_name, email', 'filter', 'filter' => [new YPurifier(), 'purify']],
+            ['first_name, last_name, gender, email, phone, city, birthday, alternative_contact, password, cPassword', 'required'],
+//            ['nick_name, email, password, cPassword', 'required'],
+            ['first_name, last_name, middle_name, email, city', 'length', 'max' => 50],
+//            ['nick_name, email', 'length', 'max' => 50],
             ['password, cPassword', 'length', 'min' => $module->minPasswordLength],
-            [
-                'nick_name',
-                'match',
-                'pattern' => '/^[A-Za-z0-9_-]{2,50}$/',
-                'message' => Yii::t(
-                    'UserModule.user',
-                    'Bad field format for "{attribute}". You can use only letters and digits from 2 to 20 symbols'
-                )
-            ],
-            ['nick_name', 'checkNickName'],
+//            [
+//                'nick_name',
+//                'match',
+//                'pattern' => '/^[A-Za-z0-9_-]{2,50}$/',
+//                'message' => Yii::t(
+//                    'UserModule.user',
+//                    'Bad field format for "{attribute}". You can use only letters and digits from 2 to 20 symbols'
+//                )
+//            ],
+//            ['nick_name', 'checkNickName'],
             [
                 'cPassword',
                 'compare',
@@ -68,7 +91,7 @@ class RegistrationForm extends CFormModel
                 'allowEmpty' => !$this->isCaptchaEnabled(),
                 'message' => Yii::t('UserModule.user', 'Check code incorrect')
             ],
-            ['verifyCode', 'captcha', 'allowEmpty' => !$this->isCaptchaEnabled()],
+//            ['verifyCode', 'captcha', 'allowEmpty' => !$this->isCaptchaEnabled()],
             ['verifyCode', 'emptyOnInvalid']
         ];
     }
@@ -82,6 +105,10 @@ class RegistrationForm extends CFormModel
     {
         $module = Yii::app()->getModule('user');
 
+        if (empty($this->country)){
+            $this->country = Yii::t('UserModule.user', 'Україна');
+        }
+
         if ($module->generateNickName) {
             $this->nick_name = 'user' . time();
         }
@@ -92,8 +119,21 @@ class RegistrationForm extends CFormModel
     public function attributeLabels()
     {
         return [
-            'nick_name' => Yii::t('UserModule.user', 'User name'),
+            'first_name' => Yii::t('UserModule.user', 'Ім\'я'),
+            'last_name' => Yii::t('UserModule.user', 'Прізвище'),
+            'middle_name' => Yii::t('UserModule.user', 'По батькові'),
             'email' => Yii::t('UserModule.user', 'Email'),
+            'phone' => Yii::t('UserModule.user', 'Телефон'),
+            'birthday' => Yii::t('UserModule.user', 'Дата народженя'),
+            'country' => Yii::t('UserModule.user', 'Країна'),
+            'gender' => Yii::t('UserModule.user', 'Стать'),
+            'city' => Yii::t('UserModule.user', 'Місто'),
+            'alternative_contact' => Yii::t('UserModule.user', 'Контактна особа у випадку проблем (ім\'я або номер телефону)'),
+            't_shirt_size' => Yii::t('UserModule.user', 'Розмір футболки'),
+            'club' => Yii::t('UserModule.user', 'Клуб'),
+            'team' => Yii::t('UserModule.user', 'Команда'),
+            'info' => Yii::t('UserModule.user', 'Додаткова інформація'),
+            'image' => Yii::t('UserModule.user', 'Фото'),
             'password' => Yii::t('UserModule.user', 'Password'),
             'cPassword' => Yii::t('UserModule.user', 'Password confirmation'),
             'verifyCode' => Yii::t('UserModule.user', 'Check code'),
@@ -123,5 +163,26 @@ class RegistrationForm extends CFormModel
         if ($this->hasErrors()) {
             $this->verifyCode = null;
         }
+    }
+
+    public function getGenderList()
+    {
+        return [
+            self::MALE => Yii::t('UserModule.user', 'male'),
+            self::FEMALE  => Yii::t('UserModule.user', 'female'),
+        ];
+    }
+
+    public function getTShirtSizeList()
+    {
+        return [
+            'XS' => Yii::t('UserModule.user', 'XS'),
+            'S' => Yii::t('UserModule.user', 'S'),
+            'M' => Yii::t('UserModule.user', 'M'),
+            'L' => Yii::t('UserModule.user', 'L'),
+            'XL' => Yii::t('UserModule.user', 'XL'),
+            'XXL' => Yii::t('UserModule.user', 'XXL'),
+            'XXXL' => Yii::t('UserModule.user', 'XXXL'),
+        ];
     }
 }

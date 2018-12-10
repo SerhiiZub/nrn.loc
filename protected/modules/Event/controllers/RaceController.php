@@ -44,7 +44,7 @@ class RaceController extends \yupe\components\controllers\FrontController
     public function actionView($id)
     {
         $model = new EventMembers;
-
+//        $model = EventMembers::model();
         if (Yii::app()->getRequest()->getPost('EventMembers') !== null) {
             $model->setAttributes(Yii::app()->getRequest()->getPost('EventMembers'));
 

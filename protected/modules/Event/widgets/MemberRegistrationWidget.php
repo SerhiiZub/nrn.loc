@@ -31,12 +31,9 @@ class MemberRegistrationWidget extends yupe\widgets\YWidget
 
     public function init()
     {
-/*        if ($this->data === null || !($this->data instanceof Event)){
-            throw new InvalidArgumentException('data must be instanceof Event');
-        }
         $this->cacheTime = 0;
         $this->module = 'Event';
-        $this->limit = 10;*/
+        $this->limit = 10;
         parent::init();
     }
 
@@ -45,19 +42,31 @@ class MemberRegistrationWidget extends yupe\widgets\YWidget
      */
     public function run()
     {
-//        CModel::scenario;
-//        if (!empty($this->memberModel)){
-//
-//        }
+
         $model = !empty($this->memberModel) ? $this->memberModel : new EventMembers();
+
+        if (!Yii::app()->user->getIsGuest()){
+            $user =Yii::app()->user->getProfile();
+
+            $criteria = new CDbCriteria();
+            $criteria->addCondition('event_id = :event_id');
+            $criteria->addCondition('race_id = :race_id');
+            $criteria->addCondition('create_user_id = :create_user_id');
+            $criteria->params = [':event_id' => $this->event_id, ':race_id' => $this->race_id, ':create_user_id' => $user->id];
+            $result = EventMembers::model()->findAll($criteria);
+            if (!empty($result)){
+                return $this->render('already_registered');
+            }
+            $model->first_name = !empty($model->first_name) ? $model->first_name : $user->first_name;
+            $model->last_name = !empty($model->last_name) ? $model->last_name : $user->last_name;
+            $model->email = !empty($model->email) ? $model->email : $user->email;
+            $model->phone = !empty($model->phone) ? $model->phone : $user->phone;
+            $model->sex = !empty($model->sex) ? $model->sex : $user->gender;
+//            $model->city = !empty($model->city) ? $model->city : $user->city;
+//            $model->last_name = $user->last_name;
+        }
         $model->event_id = $this->event_id;
-        $model->rece_id = $this->race_id;
-        $this->render($this->view, ['model' => $model]);
-/*        if (!empty($this->data->races)){
-            $this->render($this->view, [
-                'event' => $this->data,
-                'races' => $this->data->races,
-            ]);
-        }*/
+        $model->race_id = $this->race_id;
+        return $this->render($this->view, ['model' => $model]);
     }
 }

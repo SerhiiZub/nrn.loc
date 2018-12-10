@@ -61,10 +61,27 @@ class UserManager extends CApplicationComponent
         try {
 
             $user = new User;
-
+//            $user->setAttributes($form);
             $user->setAttributes([
-                'nick_name' => $form->nick_name,
+                'first_name' => $form->first_name,
+                'last_name' => $form->last_name,
+                'middle_name' => $form->middle_name,
                 'email' => $form->email,
+                'phone' => $form->phone,
+                'birth_date' => $form->birthday,
+                'gender' => $form->gender,
+                'country' => $form->country,
+                'city' => $form->city,
+                'alternative_contact' => $form->alternative_contact,
+                't_shirt_size' => $form->t_shirt_size,
+                'club' => $form->club,
+                'team' => $form->team,
+                'about' => $form->info,
+                'avatar' => $form->avatar,
+                'password' => $form->avatar,
+                'cPassword' => $form->cPassword,
+                'nick_name' => $form->email,
+                'location' => sprintf('%s %s', ucfirst($form->country), ucfirst($form->city)),
             ]);
 
             if (!$this->userModule->emailAccountVerification) {
@@ -95,7 +112,10 @@ class UserManager extends CApplicationComponent
                 return $user;
             }
 
-            throw new CException(Yii::t('UserModule.user', 'Error creating account!'));
+            foreach ($user->getErrors() as $error){
+
+            }
+            throw new CException(Yii::t('UserModule.user', 'Error creating account!' . var_export($user->getErrors(), 1)));
 
         } catch (Exception $e) {
 
