@@ -18,6 +18,7 @@ $this->breadcrumbs = [
 $this->pageTitle = Yii::t('EventModule.Event', 'Event - index');
 
 $this->menu = $this->getModule()->getNavigation();
+die;
 ?>
 
 <div class="page-header">

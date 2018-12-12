@@ -16,7 +16,8 @@ $this->widget(
                 'style' => 'margin-top: -12px;',
             ]
         ),
-        'brandUrl' => Yii::app()->hasModule('homepage') ? ['/'] : ['/site/index'],
+        'brandUrl' => ['/'],
+//        'brandUrl' => Yii::app()->hasModule('homepage') ? ['/'] : ['/site/index'],
         'items' => [
             [
                 'class' => 'bootstrap.widgets.TbMenu',

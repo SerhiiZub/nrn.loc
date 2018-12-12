@@ -4,6 +4,8 @@
  * User: Serdg
  * Date: 003 03.12.18
  * Time: 21:59
+ *
+ * @var Races[] $races
  */
 ?>
 
@@ -36,10 +38,13 @@
                     <a href="<?php echo Yii::app()->createUrl('race/'.$model->id);?>" class="btn btn-success pull-left">Придбати зараз (400 грн.)</a>
                 </div>
                 <div class="race-membersCount col-sm-3">
-                    98 чол.
+                    <?php echo $model->getCountMembers();?> чол.
                 </div>
                 <div class="race-detail col-sm-4">
-                    <a href="<?php echo Yii::app()->createUrl('race/'.$model->id);?>" class="btn btn-success pull-right">Переглянути</a>
+<!--                    <a href="--><?php //echo Yii::app()->createUrl('race/'.$model->id);?><!--" class="btn btn-success pull-right">Переглянути</a>-->
+                    <a href="<?php echo Yii::app()->createUrl('race/'.$model->id);?>" class="btn btn-default pull-right">
+                        <?=strtoupper(Yii::t('EventModule.events', 'Переглянути'))?>
+                    </a>
                 </div>
             </div>
         </li>

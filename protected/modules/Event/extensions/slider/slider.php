@@ -125,8 +125,9 @@ class slider extends CWidget
 	/** 
 	* @var bool $sliderBase - Set base folder for slider, related to webapp root;
 	*/
-	public $sliderBase = '/images/slider/';
-	
+	public $sliderBase = '/public/uploads/';
+//	public $sliderBase = '/images/slider/';
+
 	/** 
 	* @var string $imagesPath - Custom path to folder from where the images for slider are loaded;
 	*/
@@ -164,7 +165,8 @@ class slider extends CWidget
 	private function loadDefaults()
 	{
 		//default folder
-		$this->imgsFolder = 'all/';
+		$this->imgsFolder = 'image';
+//		$this->imgsFolder = 'all';
 		//is set a folder for images, use this one
 		if(isset($this->imagesPath) && $this->imagesPath != '')
 			$this->imgsFolder = $this->imagesPath;

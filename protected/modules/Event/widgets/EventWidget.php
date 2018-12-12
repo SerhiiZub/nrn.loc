@@ -45,6 +45,6 @@ class EventWidget extends yupe\widgets\YWidget
                 ]
             );
 
-        $this->render($this->view, ['models' => $models]);
+        $this->render($this->view, ['models' => $models, 'event' => Event::model()]);
     }
 }
