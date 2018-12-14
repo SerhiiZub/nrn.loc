@@ -48,6 +48,7 @@
  */
 class CArrayDataProvider extends CDataProvider
 {
+    public $modelClass;
 	/**
 	 * @var string the name of the key field. This is a field that uniquely identifies a
 	 * data record. In database this would be the primary key.
