@@ -35,8 +35,41 @@
             <hr>
             <div class="row">
                 <div class="race-pay col-sm-5">
-                    <a href="<?php echo Yii::app()->createUrl('race/'.$model->id);?>" class="btn btn-success pull-left">Придбати зараз (400 грн.)</a>
+                    <?php if (!empty($model->cost) && $model->cost != 0):?>
+                        <button
+                                class="btn btn-success pull-left"
+                                data-toggle="modal" data-target="#race_modal_<?=$model->id?>"
+                        ><?=Yii::t('EventModule.events', 'Придбати зараз')?> (<?=$model->cost?> грн.)
+                        </button>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="race_modal_<?=$model->id?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                        <h5 class="modal-title" id="exampleModalLongTitle"><?=Yii::t('EventModule.events', 'Реєстрація учасника')?></h5>
+                                    </div>
+                                    <div class="modal-body">
+                                        <?php $this->widget('application.modules.Event.widgets.MemberRegistrationWidget',[
+                                            'race_id' => $model->id,
+                                            'event_id' => $model->event_id,
+                                            'memberModel' => new EventMembers('insert'),
+                                            'race' => $model,
+                                        ]); ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Modal end-->
+                    <?php else: ?>
+                        <a href="<?php echo Yii::app()->createUrl('race/'.$model->id);?>" class="btn btn-success pull-left"><?=Yii::t('EventModule.events', 'Реєстрація безкоштовна')?></a>
+                    <?php endif;?>
                 </div>
+
                 <div class="race-membersCount col-sm-3">
                     <?php echo $model->getCountMembers();?> чол.
                 </div>

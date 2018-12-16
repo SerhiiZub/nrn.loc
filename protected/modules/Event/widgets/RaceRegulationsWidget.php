@@ -23,7 +23,7 @@ class RaceRegulationsWidget extends yupe\widgets\YWidget
      */
     public $view = 'race_regulations_widget';
 
-    public $data;
+    public $model;
 
     public function init()
     {
@@ -35,6 +35,6 @@ class RaceRegulationsWidget extends yupe\widgets\YWidget
      */
     public function run()
     {
-        $this->render($this->view, []);
+        $this->render($this->view, ['model' => $this->model]);
     }
 }

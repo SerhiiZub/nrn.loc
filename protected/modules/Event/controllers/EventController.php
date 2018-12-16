@@ -39,6 +39,7 @@ class EventController extends \yupe\components\controllers\FrontController
      * @param integer $id Идинтификатор Мероприятие для отображения
      *
      * @return void
+     * @throws Exception
      */
     public function actionView($id)
     {
@@ -53,6 +54,7 @@ class EventController extends \yupe\components\controllers\FrontController
      * @param integer идентификатор нужной модели
      *
      * @return void
+     * @throws Exception
      */
     public function loadModel($id)
     {

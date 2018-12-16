@@ -10,10 +10,43 @@
  *
  */
 return [
+    'import' => [
+        'application.modules.yupe.components.validators.*',
+        'application.modules.yupe.components.exceptions.*',
+        'application.modules.yupe.extensions.tagcache.*',
+        'application.modules.yupe.helpers.*',
+        'application.modules.yupe.models.*',
+        'application.modules.yupe.widgets.*',
+        'application.modules.yupe.controllers.*',
+//        'application.modules.yupe.components.*',
+    ],
     'module'    => [
         'class' => 'application.modules.Event.EventModule',
+        'components' => [
+            'bootstrap' => [
+                'class' => 'vendor.clevertech.yii-booster.src.components.Booster',
+                'coreCss' => true,
+                'responsiveCss' => true,
+                'yiiCss' => true,
+                'jqueryCss' => true,
+                'enableJS' => true,
+                'fontAwesomeCss' => true,
+                'enableNotifierJS' => false,
+            ],
+        ],
+        'visualEditors' => [
+            'redactor' => [
+                'class' => 'yupe\widgets\editors\Redactor',
+            ],
+            'ckeditor' => [
+                'class' => 'yupe\widgets\editors\CKEditor',
+            ],
+            'textarea' => [
+                'class' => 'yupe\widgets\editors\Textarea',
+            ],
+        ],
     ],
-    'import'    => [],
+//    'import'    => [],
     'component' => [],
     'rules'     => [
         '/Event' => 'Event/Event/index',
@@ -21,5 +54,9 @@ return [
         '/event/<id:\d+>' => 'Event/Event/view',
         '/race/<id:\d+>' => 'Event/Race/view',
         '/races/<id:\d+>' => 'Event/Race/view',
+        '/races/<action:\w+>/<id:\d+>' => 'Event/Race/<action>/<id>',
+        '/races/<action:\w+>' => 'Event/Race/<action>',
+        '/race/<action:\w+>/<id:\d+>' => 'Event/Race/<action>/<id>',
+        '/race/<action:\w+>' => 'Event/Race/<action>',
     ],
 ];

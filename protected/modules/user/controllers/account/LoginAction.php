@@ -19,6 +19,9 @@ class LoginAction extends CAction
      */
     public function run()
     {
+        /**
+         * @var UserModule $module
+         */
         $module = Yii::app()->getModule('user');
 
         if (false === Yii::app()->getUser()->getIsGuest()) {

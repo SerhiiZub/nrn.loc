@@ -11,7 +11,8 @@
  *
  */
 
-Yii::import('application.modules.Event.models.Event');
+Yii::import('application.modules.Event.models.*');
+Yii::import('application.models.*');
 
 /**
  * Class BlogsWidget
@@ -38,13 +39,13 @@ class EventWidget extends yupe\widgets\YWidget
      */
     public function run()
     {
-        $models = Event::model()->cache(10)->findAll(
+        $models = MyEvent::model()->cache(10)->findAll(
                 [
 /*                    'order'  => 'count(id) DESC',
                     'limit'  => $this->limit,*/
                 ]
             );
 
-        $this->render($this->view, ['models' => $models, 'event' => Event::model()]);
+        $this->render($this->view, ['models' => $models, 'event' => MyEvent::model()]);
     }
 }

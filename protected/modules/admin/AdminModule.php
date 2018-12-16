@@ -11,6 +11,9 @@
 
 class AdminModule  extends yupe\components\WebModule
 {
+
+    public $allowedExtensions = 'gif, jpeg, png, jpg, zip, rar, doc, docx, xls, xlsx, pdf';
+
     const VERSION = '0.9.8';
 
     /**
@@ -194,8 +197,11 @@ class AdminModule  extends yupe\components\WebModule
 //        Yii::app()->theme = 'admin';
         $this->setImport(
             [
+                'admin.*',
                 'admin.models.*',
                 'admin.components.*',
+                'admin.widgets.*',
+                'vendor.yiiext.taggable-behavior.*',
             ]
         );
     }

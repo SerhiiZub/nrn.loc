@@ -17,7 +17,11 @@ $form = $this->beginWidget(
         'id'                     => 'event-members-form',
         'enableAjaxValidation'   => false,
         'enableClientValidation' => true,
-//        'htmlOptions'            => ['class' => 'well'],
+        'action'                 => '/race/memberRegistration',
+        'htmlOptions'            => [
+//                'action'         => '/race/MemberRegistration/'.$model->race_id,
+//                'class' => 'well'
+        ],
     ]
 );
 ?>
@@ -170,37 +174,82 @@ $form = $this->beginWidget(
     </div>
     <div class="row">
         <div class="col-sm-7">
-            <?=  $form->textFieldGroup($model, 'image', [
-                'widgetOptions' => [
-                    'htmlOptions' => [
-                        'class' => 'popover-help',
-                        'data-original-title' => $model->getAttributeLabel('image'),
-                        'data-content' => $model->getAttributeDescription('image')
-                    ]
+            <?php
+            echo CHtml::image(
+                !$model->getIsNewRecord() && $model->image ? $model->getImageUrl() : '#',
+                $model->first_name.'_'.$model->last_name,
+                [
+                    'class' => 'preview-image img-responsive',
+                    'style' => !$model->getIsNewRecord() && $model->image ? '' : 'display:none',
                 ]
-            ]); ?>
+            ); ?>
+
+            <?php if (!$model->getIsNewRecord() && $model->image): ?>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox"
+                               name="delete-file"> <?= Yii::t('YupeModule.yupe', 'Delete the file') ?>
+                    </label>
+                </div>
+            <?php endif; ?>
+
+            <?= $form->fileFieldGroup(
+                $model,
+                'image',
+                [
+                    'widgetOptions' => [
+                        'htmlOptions' => [
+                            'onchange' => 'readURL(this);',
+                            'style' => 'background-color: inherit;',
+                        ],
+                    ],
+                ]
+            ); ?>
         </div>
     </div>
+<!--    <div class="row">-->
+<!--        <div class="col-sm-7">-->
+<!--            --><?//=  $form->textFieldGroup($model, 'image', [
+//                'widgetOptions' => [
+//                    'htmlOptions' => [
+//                        'class' => 'popover-help',
+//                        'data-original-title' => $model->getAttributeLabel('image'),
+//                        'data-content' => $model->getAttributeDescription('image')
+//                    ]
+//                ]
+//            ]); ?>
+<!--        </div>-->
+<!--    </div>-->
 <?php
     echo $form->hiddenField($model, 'event_id');
     echo $form->hiddenField($model, 'race_id');
 //    var_dump($model);
 //    $form->hiddenField($model, 'event_id', ['value' => $this->event_id])
 ?>
-
-<?php $this->widget(
-    'bootstrap.widgets.TbButton', [
-        'buttonType' => 'submit',
-        'context'    => 'primary',
-        'label'      => Yii::t('EventModule.Event', 'Сохранить Участника и продолжить'),
-    ]
-); ?>
-<?php $this->widget(
-    'bootstrap.widgets.TbButton', [
-        'buttonType' => 'submit',
-        'htmlOptions'=> ['name' => 'submit-type', 'value' => 'index'],
-        'label'      => Yii::t('EventModule.Event', 'Сохранить Участника и закрыть'),
-    ]
-); ?>
+<?php if (!empty($race->cost) && $race->cost != 0):?>
+    <?php $this->widget(
+        'bootstrap.widgets.TbButton', [
+            'buttonType' => 'submit',
+            'context'    => 'primary',
+            'htmlOptions'=> ['name' => 'submit-type', 'value' => 'pay'],
+            'label'      => Yii::t('EventModule.Event', 'Перейти до оплати'),
+        ]
+    ); ?>
+<?php else:?>
+<!--    --><?php //$this->widget(
+//        'bootstrap.widgets.TbButton', [
+//            'buttonType' => 'submit',
+//            'context'    => 'primary',
+//            'label'      => Yii::t('EventModule.Event', 'Сохранить Участника и продолжить'),
+//        ]
+//    ); ?>
+    <?php $this->widget(
+        'bootstrap.widgets.TbButton', [
+            'buttonType' => 'submit',
+            'htmlOptions'=> ['name' => 'submit-type', 'value' => 'index'],
+            'label'      => Yii::t('EventModule.Event', 'Зареєструватися'),
+        ]
+    ); ?>
+<?php endif;?>
 
 <?php $this->endWidget(); ?>

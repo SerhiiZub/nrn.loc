@@ -77,7 +77,7 @@ class CustomButtonColumn extends \TbButtonColumn
     {
         parent::initDefaultButtons();
 
-        $this->template = '<div class="btn-group">'.$this->template.'</div>';
+        $this->template = '<div class="btn-group" style="display: -webkit-inline-box;">'.$this->template.'</div>';
 
         if ($this->frontViewButtonUrl) {
 

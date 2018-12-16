@@ -26,6 +26,7 @@ class MemberRegistrationWidget extends yupe\widgets\YWidget
     public $race_id;
     public $event_id;
     public $memberModel;
+    public $race;
 
     public $data;
 
@@ -67,6 +68,6 @@ class MemberRegistrationWidget extends yupe\widgets\YWidget
         }
         $model->event_id = $this->event_id;
         $model->race_id = $this->race_id;
-        return $this->render($this->view, ['model' => $model]);
+        return $this->render($this->view, ['model' => $model, 'race' => $this->race]);
     }
 }

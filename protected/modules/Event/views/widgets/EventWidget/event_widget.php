@@ -5,7 +5,7 @@
  * Date: 025 25.11.18
  * Time: 17:11
  *
- * @var Event[] $models
+ * @var MyEvent[] $models
  */
 ?>
 <?php
@@ -125,7 +125,7 @@ $form = $this->beginWidget(
             <hr>
             <div class="row">
                 <div class="event-detail col-sm-6">
-                    NewRun | <?php echo $model->city;?>
+                    <?= !empty($model->organizer->name) ? $model->organizer->name : Yii::app()->name;?> | <?php echo $model->city;?>
                 </div>
                 <div class="event-city col-sm-6">
                     <a href="<?php echo Yii::app()->createUrl('event/'.$model->id);?>" class="btn btn-default pull-right">

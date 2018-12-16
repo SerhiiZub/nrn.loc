@@ -22,19 +22,20 @@
                             'encodeLabel' => false,
                             'items'=>array(
                                 array('label'=>Menu::link('Admin menu'), 'itemOptions'=>array('class'=>'header')),
-                                array('label'=>Menu::link('Dashboard', 'fa fa-dashboard'), 'url'=>array('/admin/default/index')),
-                                array('label'=>Menu::link('Users', 'fa fa-user'), 'url'=>array('/admin/user'), 'items' => [
+//                                array('label'=>Menu::link('Dashboard', 'fa fa-dashboard'), 'url'=>array('/admin/default/index')),
+                                array('label'=>Menu::link('Користувачі', 'fa fa-user'), 'url'=>array('/admin/user'), 'items' => [
 //                                    array('label'=>'Roles', 'url'=>array('/backend/rbac/rbac/userList')),
 //                                    array('label'=>'Level 4 Two', 'url'=>array('product/index')),
                                 ]),
 //                                array('label'=>Menu::link('Users', 'fa fa-user-cog'), 'url'=>array('default/index')),
-                                array('label'=>Menu::link('Events', 'fa fa-users'), 'url'=>array('/admin/events/index')),
-                                array('label'=>Menu::link('Races', 'fa running'), 'url'=>array('/admin/races/index')),
-                                array('label'=>Menu::link('Members', 'fa running'), 'url'=>array('/admin/members/index')),
-                                array('label'=>Menu::link('Promo codes', 'fa running'), 'url'=>array('/admin/promoCodes/index')),
-                                array('label'=>Menu::link('Payments', 'fa running'), 'url'=>array('/backend/payment/payment')),
-                                array('label'=>Menu::link('Race types', 'fa running'), 'url'=>array('/admin/raceTypes')),
-                                array('label'=>Menu::link('Race age categories', 'fa running'), 'url'=>array('/admin/raceAges')),
+                                array('label'=>Menu::link('Спортивні Заходи', 'fa fa-users'), 'url'=>array('/admin/events/index')),
+                                array('label'=>Menu::link('Організатори', 'fa fa-users'), 'url'=>array('/admin/organizers/index')),
+                                array('label'=>Menu::link('Забіги', 'fa running'), 'url'=>array('/admin/races/index')),
+                                array('label'=>Menu::link('Учасники', 'fa running'), 'url'=>array('/admin/members/index')),
+//                                array('label'=>Menu::link('Promo codes', 'fa running'), 'url'=>array('/admin/promoCodes/index')),
+//                                array('label'=>Menu::link('Payments', 'fa running'), 'url'=>array('/backend/payment/payment')),
+                                array('label'=>Menu::link('Типи забігів', 'fa running'), 'url'=>array('/admin/raceTypes')),
+                                array('label'=>Menu::link('Вікові категорії', 'fa running'), 'url'=>array('/admin/raceAges')),
                             ),
                     )); ?>
 

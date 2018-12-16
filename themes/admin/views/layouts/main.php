@@ -9,13 +9,24 @@
     <?php Yii::app()->getClientScript()->registerCssFile($this->mainAssets . '/dist/css/skins/_all-skins.min.css')?>
     <?php Yii::app()->getClientScript()->registerCssFile($this->mainAssets . '/dist/css/style.css')?>
 
+    <?php
+
+    Yii::app()->getClientScript()->registerCssFile($this->mainAssets . '/css/main.css');
+    Yii::app()->getClientScript()->registerCssFile($this->mainAssets . '/css/flags.css');
+    Yii::app()->getClientScript()->registerCssFile($this->mainAssets . '/css/yupe.css');
+    Yii::app()->getClientScript()->registerScriptFile($this->mainAssets . '/js/blog.js');
+    Yii::app()->getClientScript()->registerScriptFile($this->mainAssets . '/js/bootstrap-notify.js');
+    Yii::app()->getClientScript()->registerScriptFile($this->mainAssets . '/js/jquery.li-translit.js');
+    Yii::app()->getClientScript()->registerScriptFile($this->mainAssets . '/plugins/jQuery/jQuery-2.1.4.min.js');
+    ?>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <!-- Ionicons -->
+    <link href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type="text/css" />
 	<!-- bootstrap 3.0.2 -->
 <!--	<link href="--><?php //echo Yii::app()->theme->baseUrl; ?><!--/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />-->
 <!--	<link href="" rel="stylesheet" type="text/css" />-->
     <!-- Font Awesome Icons -->
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-    <!-- Ionicons -->
-    <link href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type="text/css" />
+
 	<!-- Theme style -->
 <!--	<link href="--><?php //echo Yii::app()->theme->baseUrl; ?><!--/dist/css/AdminLTE.css" rel="stylesheet" type="text/css" />-->
      <!-- AdminLTE Skins. Choose a skin from the css/skins
@@ -26,20 +37,21 @@
 
     <!-- jQuery 2.1.4 -->
 <!--    <script src="--><?php //echo Yii::app()->theme->baseUrl; ?><!--/plugins/jQuery/jQuery-2.1.4.min.js"></script>-->
-    <?php Yii::app()->getClientScript()->registerScriptFile($this->mainAssets . '/plugins/jQuery/jQuery-2.1.4.min.js');?>
 
+<!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.js"></script>-->
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
           <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
           <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+
           <![endif]-->
 
  	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
 
 </head>
 
-<body class="skin-blue sidebar-mini">
+<body class="skin-blue sidebar-mini" style="padding-top: 0px; padding-bottom: 0px">
 
     <!-- Site wrapper -->
     <div class="wrapper">
@@ -49,7 +61,7 @@
 //                $this->widget('Navbar', array(
                     //'brand'=>CHtml::image(Yii::app()->baseUrl . "/images/logo_neocds.png", ""),
                     'icon'=>'Adm',
-                    'brand'=>'Administração',
+                    'brand'=>'Панель управления',
                     'brandUrl'=>$this->createUrl('default/index'),
                     'htmlOptions'=>array('class'=>'navbar-custom-menu'),
                     'items'=>array(

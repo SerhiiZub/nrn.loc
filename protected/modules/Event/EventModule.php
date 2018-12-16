@@ -211,6 +211,7 @@ class EventModule  extends yupe\components\WebModule
 
         $this->setImport(
             [
+                'Event.*',
                 'Event.models.*',
                 'Event.components.*',
                 'vendor.yiiext.taggable-behavior.*',

@@ -68,6 +68,39 @@ class RaceController extends \yupe\components\controllers\FrontController
         $this->render('view', ['model' => $this->loadModel($id), 'memberModel' => $model ]);
     }
 
+    public function actionMemberRegistration(){
+        $model = new EventMembers;
+        if (Yii::app()->getRequest()->getPost('EventMembers') !== null) {
+            $model->setAttributes(Yii::app()->getRequest()->getPost('EventMembers'));
+
+            if (Yii::app()->getUser()->isGuest){
+                //todo user registration
+            } else {
+                //todo check if already registered
+            }
+
+            if ($model->save()) {
+                Yii::app()->user->setFlash(
+                    yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
+                    Yii::t('EventModule.Event', 'Запись добавлена!')
+                );
+
+                //todo check submit type
+
+                $this->redirect(
+                    (array)Yii::app()->getRequest()->getPost(
+                        'submit-type',
+                        [
+                            'update',
+                            'id' => $model->id
+                        ]
+                    )
+                );
+            }
+        }
+//        todo return error|member registration widget
+    }
+
 
     /**
      * Возвращает модель по указанному идентификатору

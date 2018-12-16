@@ -164,7 +164,7 @@ class Event extends yupe\models\YModel
 		$criteria->compare('name',$this->name,true);
 		$criteria->compare('description',$this->description,true);
 		$criteria->compare('icon',$this->icon,true);
-		$criteria->compare('slug',$this->slug,true);
+//		$criteria->compare('slug',$this->slug,true);
 		$criteria->compare('status',$this->status);
 
 		return new CActiveDataProvider($this, array(

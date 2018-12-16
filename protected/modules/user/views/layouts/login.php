@@ -29,14 +29,15 @@
         Yii::getPathOfAlias('application.modules.user.views.assets') . '/css/moscow-city.jpg'
     );
     ?>
-    <link rel="shortcut icon" href="<?=  $mainAssets; ?>/img/favicon.ico"/>
+<!--    <link rel="shortcut icon" href="--><?//=  $mainAssets; ?><!--/img/favicon.ico"/>-->
 
 </head>
 
 
 
-<body style='background-image: url("<?= $path;?>")'>
-<div id="overall-wrap">
+<body >
+<!--<body style='background-image: url("--><?//= $path;?>/*")'>*/
+<div id="overall-wrap" style="background-color: lightgoldenrodyellow">
     <!-- mainmenu -->
     <?php $brandTitle = Yii::t('UserModule.user', 'Control panel'); ?>
     <?php
@@ -55,7 +56,8 @@
                         'title'  => CHtml::encode(Yii::app()->name),
                     ]
                 ),
-            'brandUrl' => CHtml::normalizeUrl(["/yupe/backend/index"]),
+            'brandUrl' => CHtml::normalizeUrl(["/admin"]),
+//            'brandUrl' => CHtml::normalizeUrl(["/yupe/backend/index"]),
             'items'    => [
                 [
                     'class'       => 'bootstrap.widgets.TbMenu',
@@ -64,7 +66,7 @@
                     'encodeLabel' => false,
                     'items'       => array_merge(
                         [
-                            [
+                            /*[
                                 'icon'  => 'fa fa-fw fa-question-circle',
                                 'label' => Yii::t('YupeModule.yupe', 'Help'),
                                 'url'   => CHtml::normalizeUrl(['/yupe/backend/help']),
@@ -123,7 +125,7 @@
                                         'url'   => 'http://yupe.ru/about?from=help-support',
                                     ],
                                 ]
-                            ],
+                            ],*/
                             [
                                 'icon'    => 'fa fa-fw fa-home',
                                 'label'   => Yii::t('YupeModule.yupe', 'Go home'),
@@ -148,8 +150,8 @@
 </div>
 
 <footer>
-    &copy; 2012 - <?=  date('Y'); ?>
-    <?=  $this->yupe->poweredBy(); ?>
+    &copy; 2018 - <?=  date('Y'); ?>
+<!--    --><?//=  $this->yupe->poweredBy(); ?>
 </footer>
 </body>
 </html>

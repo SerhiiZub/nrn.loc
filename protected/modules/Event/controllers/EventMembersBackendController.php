@@ -17,6 +17,7 @@ class EventMembersBackendController extends application\modules\admin\components
     * @param integer $id Идинтификатор Участника для отображения
     *
     * @return void
+     * @throws Exception
     */
     public function actionView($id)
     {
@@ -63,6 +64,7 @@ class EventMembersBackendController extends application\modules\admin\components
     * @param integer $id Идинтификатор Участника для редактирования
     *
     * @return void
+     * @throws Exception
     */
     public function actionUpdate($id)
     {
@@ -98,6 +100,7 @@ class EventMembersBackendController extends application\modules\admin\components
     * @param integer $id идентификатор Участника, который нужно удалить
     *
     * @return void
+     * @throws Exception
     */
     public function actionDelete($id)
     {
@@ -139,6 +142,7 @@ class EventMembersBackendController extends application\modules\admin\components
     * @param integer идентификатор нужной модели
     *
     * @return void
+     * @throws Exception
     */
     public function loadModel($id)
     {

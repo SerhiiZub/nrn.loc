@@ -29,7 +29,7 @@ return [
     // Default controller
     'defaultController' => 'site',
     // Application name
-    'name' => 'Yupe!',
+    'name' => 'New Run',
     // Default language
     'language' => 'ru',
     'sourceLanguage' => 'en',
@@ -123,7 +123,8 @@ return [
                 // For correct work of installer
                 '/install/default/<action:\w+>' => '/install/default/<action>',
                 '/backend' => '/yupe/backend/index',
-                '/backend/login' => '/user/account/backendlogin',
+                '/admin/login' => '/user/account/backendlogin',
+//                '/backend/login' => '/user/account/backendlogin',
                 '/backend/<action:(AjaxFileUpload|AjaxImageUpload|AjaxImageUploadCKE|index|settings|flushDumpSettings|modulesettings|saveModulesettings|themesettings|modupdate|help|ajaxflush|transliterate)>' => '/yupe/backend/<action>',
                 '/backend/<module:\w+>/<controller:\w+>' => '/<module>/<controller>Backend/index',
                 '/backend/<module:\w+>/<controller:\w+>/<action:\w+>/<id:\d+>' => '/<module>/<controller>Backend/<action>',
