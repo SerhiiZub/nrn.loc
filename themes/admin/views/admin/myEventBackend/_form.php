@@ -116,25 +116,24 @@
         </div>
     </div>
     <div class="row">
-<!--        <div class="col-sm-7">-->
-            <?/*=  $form->textAreaGroup($model, 'description', [
-            'widgetOptions' => [
-                'htmlOptions' => [
-                    'class' => 'popover-help',
-                    'rows' => 6,
-                    'cols' => 50,
-                    'data-original-title' => $model->getAttributeLabel('description'),
-                    'data-content' => $model->getAttributeDescription('description')
+<!--            --><?php //$this->widget('themes.admin.ext.ckeditor.CKEditor', array(
+//                'model'=>$model,
+//                'attribute'=>'description',
+//                'language'=>'ru',
+//                'editorTemplate'=>'full',
+////                "defaultValue"=> 'description'
+//            )); ?>
+        <div class="col-sm-12">
+            <?=  $form->ckEditorGroup($model, 'description', [
+                'widgetOptions' => [
+                    'htmlOptions' => [
+                        'class' => 'popover-help',
+                        'data-original-title' => $model->getAttributeLabel('description'),
+                        'data-content' => $model->getAttributeDescription('description')
+                    ]
                 ]
-            ]]); */?>
-            <?php $this->widget('themes.admin.ext.ckeditor.CKEditor', array(
-                'model'=>$model,
-                'attribute'=>'description',
-                'language'=>'ru',
-                'editorTemplate'=>'full',
-//                "defaultValue"=> 'description'
-            )); ?>
-<!--        </div>-->
+            ]); ?>
+        </div>
     </div>
     <div class="row">
         <div class="col-sm-6">
@@ -160,77 +159,40 @@
             ]); ?>
         </div>
     </div>
-<!--    <div class="row">-->
-<!--        <div class="col-sm-7">-->
-<!--            --><?//=  $form->textFieldGroup($model, 'icon', [
-//                'widgetOptions' => [
-//                    'htmlOptions' => [
-//                        'class' => 'popover-help',
-//                        'data-original-title' => $model->getAttributeLabel('icon'),
-//                        'data-content' => $model->getAttributeDescription('icon')
-//                    ]
-//                ]
-//            ]); ?>
-<!--        </div>-->
-<!--    </div>-->
-<!--    <div class="row">-->
-<!--    <div class="col-sm-7">-->
-<?php //$form->dateField($model,'dateTimeStart')?>
-<!--    </div>-->
-<!--    </div>-->
-<?/*= $form->dateField($model, 'dateTimeStart')->widget(DateTimePicker::className(), [
-
-    'options' => ['placeholder' => 'Select rendering time ...'],
-
-    'convertFormat' => true,
-
-    'pluginOptions' => [
-
-        'format' => 'yyyy/dd/mm hh:ii:ss',
-
-        'startDate' => '01-Jul-2017 12:00 AM',
-
-        'todayHighlight' => true
-
-    ]
-
-
-]); */?>
     <div class="row">
         <div class="col-sm-6">
-            <?=  $form->dateTimePickerGroup($model,'dateTimeStart', [
-            'widgetOptions' => [
-                'options' => [
-                    'format' => 'dd-mm-yyyy hh:ii',
-                    'weekStart' => 1,
-                    'autoclose' => true,
-                ],
-                'htmlOptions'=>[
-                    'class' => 'popover-help',
-                    'data-original-title' => $model->getAttributeLabel('dateTimeStart'),
-                    'data-content' => $model->getAttributeDescription('dateTimeStart'),
-//                    'value' => date("d.m.Y"),
-                ]
-            ],
-            'prepend'=>'<i class="fa fa-calendar"></i>'
-        ]); ?>
+                <?= $form->datePickerGroup(
+                    $model,
+                    'dateTimeStart',
+                    [
+                        'widgetOptions' => [
+                            'options' => [
+                                'format' => 'yyyy-mm-dd',
+                                'weekStart' => 1,
+                                'autoclose' => true,
+                            ],
+                        ],
+                        'prepend' => '<i class="fa fa-calendar"></i>',
+                    ]
+                );
+                ?>
         </div>
         <div class="col-sm-6">
-            <?=  $form->dateTimePickerGroup($model,'dateTimeEndRegistration', [
-                'widgetOptions' => [
-                    'options' => [
-                        'format' => 'dd-mm-yyyy hh:ii',
-                        'weekStart' => 1,
-                        'autoclose' => true,
+            <?= $form->datePickerGroup(
+                $model,
+                'dateTimeEndRegistration',
+                [
+                    'widgetOptions' => [
+                        'options' => [
+                            'format' => 'yyyy-mm-dd',
+                            'weekStart' => 1,
+                            'autoclose' => true,
+                        ],
                     ],
-                    'htmlOptions'=>[
-                        'class' => 'popover-help',
-                        'data-original-title' => $model->getAttributeLabel('dateTimeEndRegistration'),
-                        'data-content' => $model->getAttributeDescription('dateTimeEndRegistration'),
-                    ]
-                ],
-                'prepend'=>'<i class="fa fa-calendar"></i>'
-            ]); ?>
+                    'prepend' => '<i class="fa fa-calendar"></i>',
+                ]
+            );
+            ?>
         </div>
     </div>
     <div class='row'>
@@ -397,7 +359,19 @@ echo $form->error($model, 'image');*/
                 'columns'      => [
                         'id',
                         'title',
-                        'status',
+//                        'status',
+                        [
+                            'class'   => 'yupe\widgets\EditableStatusColumn',
+                            'name'    => 'status',
+                            'url'     => $this->createUrl('/admin/races/inline'),
+                            'source'  => $model->getStatusList(),
+                            'options' => [
+                                MyEvent::STATUS_ACTIVE   => ['class' => 'label-success'],
+                                MyEvent::STATUS_DISABLED => ['class' => 'label-default'],
+                                MyEvent::STATUS_ENDED => ['class' => 'label-default'],
+                            ],
+                        ],
+                        'cost',
                         [
                             'class' => 'yupe\widgets\CustomButtonColumn',
                             'htmlOptions' => [

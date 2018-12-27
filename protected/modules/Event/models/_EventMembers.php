@@ -21,6 +21,7 @@
  * @property string $user_id
  * @property string $alternative_contact
  * @property integer $status
+ * @property integer $payment_status
  * @property string $promo_code
  * @property string $create_user_id
  * @property string $update_user_id
@@ -28,7 +29,7 @@
  * @property string $update_time
  * @property string $image
  */
-class  EventMembers extends yupe\models\YModel
+class  _EventMembers extends yupe\models\YModel
 //class EventMembers extends CActiveRecord
 {
     const MALE = 1;
@@ -51,15 +52,15 @@ class  EventMembers extends yupe\models\YModel
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('event_id, race_id, first_name, last_name, email, phone, b_date, sex, city, user_id, start_number', 'required'),
-			array('phone, sex, status', 'numerical', 'integerOnly'=>true),
+			array('event_id, race_id, first_name, last_name, email, phone, b_date, sex, city, user_id, start_number, payment_status', 'required'),
+			array('phone, sex, status, payment_status', 'numerical', 'integerOnly'=>true),
 			array('event_id, race_id, create_user_id, update_user_id, start_number', 'length', 'max'=>11),
 			array('first_name, last_name, midle_name, email, alternative_contact, promo_code', 'length', 'max'=>255),
 			array('city, club, command', 'length', 'max'=>100),
 			array('image', 'length', 'max'=>300),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, event_id, race_id, first_name, last_name, midle_name, email, phone, b_date, sex, city, alternative_contact, status, promo_code, create_user_id, update_user_id, create_time, update_time, image, club, command, start_number', 'safe', 'on'=>'search'),
+			array('id, event_id, race_id, first_name, last_name, midle_name, email, phone, b_date, sex, city, alternative_contact, status, promo_code, create_user_id, update_user_id, create_time, update_time, image, club, command, start_number, payment_status', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -98,6 +99,7 @@ class  EventMembers extends yupe\models\YModel
 			'user_id' => 'Участник',
 			'alternative_contact' => 'Контакт в случае проблем',
 			'status' => 'Статус',
+			'payment_status' => 'Статус оплати',
 			'promo_code' => 'Промо код',
 			'create_user_id' => 'Create User',
 			'update_user_id' => 'Update User',
@@ -147,6 +149,7 @@ class  EventMembers extends yupe\models\YModel
 		$criteria->compare('create_time',$this->create_time,true);
 		$criteria->compare('update_time',$this->update_time,true);
 		$criteria->compare('image',$this->image,true);
+		$criteria->compare('payment_status',$this->image,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

@@ -13,6 +13,9 @@
 <?php //var_dump($races)?>
 <ul class="list-unstyled">
     <?php foreach ($races as $model): ?>
+        <?php if ($model->status == Races::STATUS_DISABLED || $model->status == Races::STATUS_DELETED):?>
+            <?php continue?>
+        <?php endif;?>
         <li class="races-list">
             <div class="">
                 <div class="row">
@@ -35,7 +38,11 @@
             <hr>
             <div class="row">
                 <div class="race-pay col-sm-5">
-                    <?php if (!empty($model->cost) && $model->cost != 0):?>
+                    <?php if ($model->status == Races::STATUS_ENDED):?>
+                        <button class="btn btn-default pull-left">
+                            <?=Yii::t('EventModule.events', 'Реєстрація закінчилась')?>
+                        </button>
+                    <?php elseif (!empty($model->cost) && $model->cost != 0):?>
                         <button
                                 class="btn btn-success pull-left"
                                 data-toggle="modal" data-target="#race_modal_<?=$model->id?>"

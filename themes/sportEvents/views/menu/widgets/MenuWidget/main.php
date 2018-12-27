@@ -1,6 +1,6 @@
 <?php
 
-//var_dump($viewParams);
+//var_dump($this->params['items']);
 //die;
 
 Yii::import('application.modules.menu.components.YMenu');
@@ -16,16 +16,16 @@ $this->widget(
                 'style' => 'margin-top: -12px;',
             ]
         ),
-        'brandUrl' => ['/'],
+//        'brandUrl' => ['/'],
 //        'brandUrl' => Yii::app()->hasModule('homepage') ? ['/'] : ['/site/index'],
         'items' => [
             [
-                'class' => 'bootstrap.widgets.TbMenu',
-                'type' => 'navbar',
-                'items' => $this->controller->yupe->getLanguageSelectorArray(),
-                'htmlOptions' => [
-                    'class' => 'pull-right',
-                ],
+//                'class' => 'bootstrap.widgets.TbMenu',
+//                'type' => 'navbar',
+//                'items' => $this->controller->yupe->getLanguageSelectorArray(),
+//                'htmlOptions' => [
+//                    'class' => 'pull-right',
+//                ],
             ],
             CMap::mergeArray(
                 [

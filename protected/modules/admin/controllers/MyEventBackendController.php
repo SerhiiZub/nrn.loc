@@ -22,6 +22,25 @@ class MyEventBackendController extends application\modules\admin\components\Admi
     {
         $this->render('view', ['model' => $this->loadModel($id)]);
     }
+
+    /**
+     * @return array
+     */
+    public function actions()
+    {
+        return [
+            'inline' => [
+                'class' => 'yupe\components\actions\YInLineEditAction',
+                'model' => 'MyEvent',
+                'validAttributes' => ['title', 'href', 'status', 'id', 'sort', 'dateTimeStart', 'dateTimeEndRegistration'],
+            ],
+            'sortable' => [
+                'class' => 'yupe\components\actions\SortAction',
+                'model' => 'MyEvent',
+                'attribute' => 'sort',
+            ],
+        ];
+    }
     
     /**
     * Создает новую модель Мероприятия.

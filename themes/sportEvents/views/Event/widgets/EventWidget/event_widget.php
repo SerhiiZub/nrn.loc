@@ -8,15 +8,18 @@
  * @var MyEvent[] $models
  */
 ?>
+
+<div class="form-row event-filters" style="padding: 0; display: -webkit-inline-box; width: 100%;">
 <?php
 $form = $this->beginWidget(
     'bootstrap.widgets.TbActiveForm', [
-        'action'      => Yii::app()->createUrl('/'),
+        'action'      => '/',
 //        'action'      => Yii::app()->createUrl($this->route),
         'method'      => 'get',
-        'type'        => 'horizontal',
+//        'type'        => 'horizontal',
 //        'type'        => 'vertical',
         'htmlOptions' => [
+            'style' => 'width: 100%;'
 //                'class' => 'form-inline'
 //                'class' => 'well'
         ],
@@ -24,13 +27,15 @@ $form = $this->beginWidget(
 );
 ?>
 
-<div class="row event-filters">
+<!--<div class="form-row event-filters">-->
+<!--<div class="row event-filters">-->
 <!--    Фильтры-->
-    <div class="col-sm-2 form-group">
-        <input type="text" class="form-control" name="city" placeholder="<?=Yii::t('EventModule.events', 'Місто')?>">
-<!--        <input type="text" class="btn btn-default">--><?//=Yii::t('EventModule.events', 'Місто')?><!--</input>-->
+    <div class="col-sm-3 filter-item">
+<!--    <div class="col-sm-3 form-group">-->
+        <input type="text" class="form-control" name="EventFilter[city]" placeholder="<?=Yii::t('EventModule.events', 'Місто')?>" value="<?=$filters['city']?>">
     </div>
-    <div class="col-sm-2 form-group">
+    <div class="col-sm-3 filter-item">
+<!--    <div class="col-sm-3 form-group">-->
         <?php
         $this->widget('zii.widgets.jui.CJuiDatePicker', array(
             'model'=>$event,
@@ -45,14 +50,16 @@ $form = $this->beginWidget(
             ),
             'htmlOptions'=>array(
                 'class' => 'form-control',
-                'name' => 'date_from',
-                'placeholder' => Yii::t('EventModule.events', 'дата від'),
-//                    'style'=>'height:20px;'
+                'name' => 'EventFilter[date_from]',
+                'placeholder' => Yii::t('EventModule.events', 'Дата від'),
+                'value' => $filters['date_from'],
+                'autocomplete' => 'off',
             ),
         ));
         ?>
     </div>
-    <div class="col-sm-2 form-group">
+    <div class="col-sm-3 filter-item">
+<!--    <div class="col-sm-3 form-group">-->
         <?php
         $this->widget('zii.widgets.jui.CJuiDatePicker', array(
             'model'=>$event,
@@ -67,18 +74,32 @@ $form = $this->beginWidget(
             ),
             'htmlOptions'=>array(
                 'class' => 'form-control',
-                'name' => 'date_to',
-                'placeholder' => Yii::t('EventModule.events', 'дата до'),
+                'name' => 'EventFilter[date_to]',
+                'placeholder' => Yii::t('EventModule.events', 'Дата до'),
+                'value' => $filters['date_to'],
+                'autocomplete' => 'off'
 //                    'style'=>'height:20px;'
             ),
         ));
         ?>
     </div>
-    <div class="col-sm-2 form-group">
-        <input type="text" class="form-control" placeholder="<?=Yii::t('EventModule.events', 'Вид спорту')?>">
-<!--        <button class="btn btn-default">--><?//=Yii::t('EventModule.events', 'Вид спорту')?><!--</button>-->
+<!--    <div class="col-sm-2 form-group">-->
+<!--        <input type="text" class="form-control" placeholder="--><?//=Yii::t('EventModule.events', 'Вид спорту')?><!--">-->
+<!--    </div>-->
+    <div class="col-sm-1 filter-item filter-clear">
+<!--    <div class="col-sm-3 form-group">-->
+<!--        --><?php //$this->widget(
+//            'bootstrap.widgets.TbButton', [
+//                'context'     => 'default',
+//                'encodeLabel' => false,
+//                'buttonType'  => 'submit',
+//                'label'       => '<i class="fa fa-times">&nbsp;</i>',
+//            ]
+//        ); ?>
+<!--        <button class="btn btn-default">--><?//=Yii::t('EventModule.events', 'Підібрати')?><!--</button>-->
     </div>
-    <div class="col-sm-3 form-group">
+    <div class="col-sm-2 filter-item">
+<!--    <div class="col-sm-3 form-group">-->
         <?php $this->widget(
             'bootstrap.widgets.TbButton', [
                 'context'     => 'primary',
@@ -89,11 +110,15 @@ $form = $this->beginWidget(
         ); ?>
 <!--        <button class="btn btn-default">--><?//=Yii::t('EventModule.events', 'Підібрати')?><!--</button>-->
     </div>
-</div>
+
 
 
 <?php $this->endWidget(); ?>
-
+</div>
+<?php if (empty($models)):?>
+<!--<div class="label label-info" style="width: 100%; text-align: center; font-size: large">--><?//=Yii::t('EventModule.Event', 'Нажаль нічого не знайдено')?><!--</div>-->
+<div class="alert alert-info" style="width: 100%; text-align: center; font-size: large"><?=Yii::t('EventModule.Event', 'Нажаль нічого не знайдено')?></div>
+<?php endif;?>
 <ul class="list-unstyled">
     <?php foreach ($models as $model): ?>
     <li class="event-list">

@@ -26,6 +26,9 @@ class MemberRegistrationWidget extends yupe\widgets\YWidget
     public $race_id;
     public $event_id;
     public $memberModel;
+    /**
+     * @var Races
+     */
     public $race;
 
     public $data;
@@ -35,6 +38,9 @@ class MemberRegistrationWidget extends yupe\widgets\YWidget
         $this->cacheTime = 0;
         $this->module = 'Event';
         $this->limit = 10;
+        if (empty($this->race)){
+            $this->race = Races::model()->findByPk($this->race_id);
+        }
         parent::init();
     }
 
@@ -68,6 +74,9 @@ class MemberRegistrationWidget extends yupe\widgets\YWidget
         }
         $model->event_id = $this->event_id;
         $model->race_id = $this->race_id;
+        $model->user_id = $user->id;
+        $model->start_number = $this->race->start_number_prefix . (rand(1, 100));
+//        $model->start_number = $this->race->start_number_prefix . ($this->race->getCountMembers() + 1);
         return $this->render($this->view, ['model' => $model, 'race' => $this->race]);
     }
 }

@@ -47,7 +47,14 @@ return [
         ],
     ],
 //    'import'    => [],
-    'component' => [],
+    'component' => [
+        'request' => [
+            'noCsrfValidationRoutes' => [
+                'payment/success',
+                'Event/LiqpayPayment/success'
+            ],
+        ],
+    ],
     'rules'     => [
         '/Event' => 'Event/Event/index',
         '/' => 'Event/Event/index',
@@ -58,5 +65,9 @@ return [
         '/races/<action:\w+>' => 'Event/Race/<action>',
         '/race/<action:\w+>/<id:\d+>' => 'Event/Race/<action>/<id>',
         '/race/<action:\w+>' => 'Event/Race/<action>',
+        '/payment/payProcess/' => 'Event/LiqpayPayment/payProcess',
+        '/payment/<action:\w+>' => 'Event/LiqpayPayment/<action>',
+        '/payment/success' => 'Event/LiqpayPayment/success',
+//        '/payment/<action:\w+>/order/<id:\d+>' => 'Event/LiqpayPayment/<action>/<id>',
     ],
 ];

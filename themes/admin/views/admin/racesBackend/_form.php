@@ -96,14 +96,6 @@ $form = $this->beginWidget(
             ]); ?>
         </div>
         <?php endif;?>
-        <!--<div class="fast-order__inputs">
-            <?/*= $form->labelEx($model, 'event_id'); */?>
-            <?/*= $form->dropDownList($model, 'event_id', User::model()->getGendersList(), [
-                'data-original-title' => $model->getAttributeLabel('gender'),
-                'data-content' => User::model()->getAttributeDescription('gender'),
-                'class' => 'input input_big'
-            ]); */?>
-        </div>-->
     </div>
     <div class="row">
         <div class="col-sm-7">
@@ -145,27 +137,20 @@ $form = $this->beginWidget(
         </div>
     </div>
     <div class="row">
-<!--        <div class="col-sm-7">
-            <?/*=  $form->textAreaGroup($model, 'description', [
-            'widgetOptions' => [
-                'htmlOptions' => [
-                    'class' => 'popover-help',
-                    'rows' => 6,
-                    'cols' => 50,
-                    'data-original-title' => $model->getAttributeLabel('description'),
-                    'data-content' => $model->getAttributeDescription('description')
+        <div class="col-sm-12">
+            <?=  $form->ckEditorGroup($model, 'description', [
+                'widgetOptions' => [
+                    'htmlOptions' => [
+                        'class' => 'popover-help',
+                        'data-original-title' => $model->getAttributeLabel('description'),
+                        'data-content' => $model->getAttributeDescription('description')
+                    ]
                 ]
-            ]]); */?>
-        </div>-->
-        <?php $this->widget('themes.admin.ext.ckeditor.CKEditor', array(
-            'model'=>$model,
-            'attribute'=>'description',
-            'language'=>'ru',
-            'editorTemplate'=>'full',
-        )); ?>
+            ]); ?>
+        </div>
     </div>
     <div class="row">
-        <div class="col-sm-4">
+        <div class="col-sm-6">
             <?= $form->dropDownListGroup(
                 $model,
                 'status',
@@ -181,7 +166,7 @@ $form = $this->beginWidget(
                 ]
             ); ?>
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-6">
             <?= $form->dropDownListGroup(
                 $model,
                 'type_Id',
@@ -197,31 +182,25 @@ $form = $this->beginWidget(
                 ]
             ); ?>
         </div>
-        <div class="col-sm-4">
-            <?= $form->dropDownListGroup(
-                $model,
-                'age_category_id',
-                [
-                    'widgetOptions' => [
-                        'data'        => RaceAgeCategory::getCategories(),
-                        'htmlOptions' => [
-                            'class'               => 'popover-help',
-                            'data-original-title' => $model->getAttributeLabel('age_category_id'),
-                            'data-content'        => $model->getAttributeDescription('age_category_id'),
+        <?php if (0):?>
+            <div class="col-sm-4">
+                <?= $form->dropDownListGroup(
+                    $model,
+                    'age_category_id',
+                    [
+                        'widgetOptions' => [
+                            'data'        => RaceAgeCategory::getCategories(),
+                            'htmlOptions' => [
+                                'class'               => 'popover-help',
+                                'data-original-title' => $model->getAttributeLabel('age_category_id'),
+                                'data-content'        => $model->getAttributeDescription('age_category_id'),
+                            ],
                         ],
-                    ],
-                ]
-            ); ?>
+                    ]
+                ); ?>
+            </div>
         </div>
-    </div>
-<!--    <div class="row">-->
-<!--        <div class="col-sm-7">-->
-<!--            --><?//= $form->labelEx($model, 'age_category_id'); ?>
-<!--            --><?//= $form->dropDownList($model, 'age_category_id', RaceAgeCategory::getCategories(), [
-//                'class' => 'input input_big'
-//            ]); ?>
-<!--        </div>-->
-<!--    </div>-->
+    <?php endif;?>
     <div class="row">
         <div class="col-sm-7">
             <?php

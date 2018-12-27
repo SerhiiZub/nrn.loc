@@ -39,13 +39,28 @@ class EventWidget extends yupe\widgets\YWidget
      */
     public function run()
     {
-        $models = MyEvent::model()->cache(10)->findAll(
-                [
-/*                    'order'  => 'count(id) DESC',
-                    'limit'  => $this->limit,*/
-                ]
-            );
+        $filters = Yii::app()->getRequest()->getParam('EventFilter');
+        $filters['city'] = !empty($filters['city']) ? $filters['city'] : '';
+        $filters['date_from'] = !empty($filters['date_from']) ? $filters['date_from'] : '';
+        $filters['date_to'] = !empty($filters['date_to']) ? $filters['date_to'] : '';
+        $criteria = new CDbCriteria();
+        if (!empty($filters)){
+            $criteria->compare('t.city', $filters['city']);
+            if (!empty($filters['date_from'])){
+                $criteria->addCondition('t.dateTimeStart >= :date_from');
+                $criteria->params[':date_from'] = $filters['date_from'];
+            }
+            if (!empty($filters['date_to'])){
+                $criteria->addCondition('t.dateTimeStart < :date_to');
+                $criteria->params[':date_to'] = $filters['date_to'];
+            }
+        }
+        $criteria->addCondition('t.status = :status');
+        $criteria->params[':status'] = MyEvent::STATUS_ACTIVE;
+        $criteria->order = 't.dateTimeStart ASC';
 
-        $this->render($this->view, ['models' => $models, 'event' => MyEvent::model()]);
+        $models = MyEvent::model()->cache(10)->findAll($criteria);
+
+        $this->render($this->view, ['models' => $models, 'event' => MyEvent::model(), 'filters' => $filters]);
     }
 }

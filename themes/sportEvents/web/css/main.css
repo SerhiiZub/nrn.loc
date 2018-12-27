@@ -32,6 +32,11 @@ body {
 }
 
 /*EVENTS start*/
+.filter-item{
+    padding-left: 0;
+    padding-right: 0;
+}
+
 .event-list{
     background-color: whitesmoke;
     margin-bottom: 20px;
@@ -96,7 +101,7 @@ body {
 }
 
 .sidebar{
-    margin-top: 110px;
+    /*margin-top: 110px;*/
 }
 /*EVENTS end*/
 

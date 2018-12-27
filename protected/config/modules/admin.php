@@ -51,10 +51,11 @@ return [
     'component' => [],
     'rules'     => [
 //        '/admin' => 'admin/admin/index',
-        '/admin' => '/admin/adminBackend/index',
-        '/backend/admin' => '/admin/adminBackend/index',
-        '/admin/default/index' => '/admin/adminBackend/index',
-        '/backend/admin/default/index' => '/admin/adminBackend/index',
+        '/admin' => '/admin/EventOptionsBackend/index',
+//        '/admin' => '/admin/adminBackend/index',
+        '/backend/admin' => '/admin/EventOptionsBackend/index',
+        '/admin/default/index' => '/admin/EventOptionsBackend/index',
+        '/backend/admin/default/index' => '/admin/EventOptionsBackend/index',
 
 
         //user
@@ -90,31 +91,31 @@ return [
 //        '/backend/admin/races/create/event/<id:\d+>' => '/Event/RacesBackend/create/event/<id>',
 
         //members
-        '/admin/members' => '/Event/eventMembersBackend/index',
-        '/backend/admin/members' => '/Event/eventMembersBackend/index',
-        '/admin/members/<action:\w+>' => '/Event/EventMembersBackend/<action>',
-        '/backend/admin/members/<action:\w+>' => '/Event/EventMembersBackend/<action>',
+        '/admin/members' => '/admin/eventMembersBackend/index',
+        '/backend/admin/members' => '/admin/eventMembersBackend/index',
+        '/admin/members/<action:\w+>' => '/admin/EventMembersBackend/<action>',
+        '/backend/admin/members/<action:\w+>' => '/admin/EventMembersBackend/<action>',
 
         //race types
-        '/admin/raceType' => '/Event/RaceTypeBackend/index',
-        '/backend/admin/raceType' => '/Event/RaceTypeBackend/index',
-        '/admin/raceTypes' => '/Event/RaceTypeBackend/index',
-        '/backend/admin/raceTypes' => '/Event/RaceTypeBackend/index',
-        '/admin/raceTypes/<action:\w+>' => '/Event/RaceTypeBackend/<action>',
-        '/backend/admin/raceTypes/<action:\w+>' => '/Event/RaceTypeBackend/<action>',
-        '/admin/raceType/<id:\d+>' => '/Event/RaceTypeBackend/view/<id>',
-        '/backend/admin/raceType/<id:\d+>' => '/Event/RaceTypeBackend/view/<id>',
+        '/admin/raceType' => '/admin/RaceTypeBackend/index',
+        '/backend/admin/raceType' => '/admin/RaceTypeBackend/index',
+        '/admin/raceTypes' => '/admin/RaceTypeBackend/index',
+        '/backend/admin/raceTypes' => '/admin/RaceTypeBackend/index',
+        '/admin/raceTypes/<action:\w+>' => '/admin/RaceTypeBackend/<action>',
+        '/backend/admin/raceTypes/<action:\w+>' => '/admin/RaceTypeBackend/<action>',
+        '/admin/raceType/<id:\d+>' => '/admin/RaceTypeBackend/view/<id>',
+        '/backend/admin/raceType/<id:\d+>' => '/admin/RaceTypeBackend/view/<id>',
 //        '/backend/RaceAgeCategoryBackend/index' => '/Event/RacesBackend/create/event/<id>',
 
         //race age categories
-        '/admin/raceAge' => '/Event/RaceAgeCategoryBackend/index',
-        '/backend/admin/raceAge' => '/Event/RaceAgeCategoryBackend/index',
-        '/admin/raceAges' => '/Event/RaceAgeCategoryBackend/index',
-        '/backend/admin/raceAges' => '/Event/RaceAgeCategoryBackend/index',
-        '/admin/raceAge/<action:\w+>' => '/Event/RaceAgeCategoryBackend/<action>',
-        '/backend/admin/raceAge/<action:\w+>' => '/Event/RaceAgeCategoryBackend/<action>',
-        '/admin/raceAge/<id:\d+>' => '/Event/RaceAgeCategoryBackend/view/<id>',
-        '/backend/admin/raceAge/<id:\d+>' => '/Event/RaceAgeCategoryBackend/view/<id>',
+        '/admin/raceAge' => '/admin/RaceAgeCategoryBackend/index',
+        '/backend/admin/raceAge' => '/admin/RaceAgeCategoryBackend/index',
+        '/admin/raceAges' => '/admin/RaceAgeCategoryBackend/index',
+        '/backend/admin/raceAges' => '/admin/RaceAgeCategoryBackend/index',
+        '/admin/raceAge/<action:\w+>' => '/admin/RaceAgeCategoryBackend/<action>',
+        '/backend/admin/raceAge/<action:\w+>' => '/admin/RaceAgeCategoryBackend/<action>',
+        '/admin/raceAge/<id:\d+>' => '/admin/RaceAgeCategoryBackend/view/<id>',
+        '/backend/admin/raceAge/<id:\d+>' => '/admin/RaceAgeCategoryBackend/view/<id>',
 
         //organizers
         '/admin/organizers' => 'admin/EventOrganizersBackend/index',
@@ -125,5 +126,12 @@ return [
         '/admin/organizers/<id:\d+>' => 'admin/EventOrganizersBackend/view/<id>',
         '/admin/organizer/<id:\d+>' => 'admin/EventOrganizersBackend/view/<id>',
         '/backend/admin/organizer/<id:\d+>' => 'admin/EventOrganizersBackend/view/<id>',
+
+        //options
+        '/admin/payment' => 'admin/EventOrdersBackend/index',
+
+        //options
+        '/admin/slider' => 'admin/EventSliderBackend/index',
+        '/admin/slider/<action:\w+>' => 'admin/EventSliderBackend/<action>',
     ],
 ];

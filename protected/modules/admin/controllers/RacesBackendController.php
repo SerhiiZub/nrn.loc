@@ -22,7 +22,28 @@ class RacesBackendController extends application\modules\admin\components\AdminC
     {
         $this->render('view', ['model' => $this->loadModel($id)]);
     }
-    
+
+
+    /**
+     * @return array
+     */
+    public function actions()
+    {
+        return [
+            'inline' => [
+                'class' => 'yupe\components\actions\YInLineEditAction',
+                'model' => 'Races',
+                'validAttributes' => ['title', 'href', 'status', 'id', 'sort', 'dateTimeStart', 'dateTimeEndRegistration'],
+            ],
+            'sortable' => [
+                'class' => 'yupe\components\actions\SortAction',
+                'model' => 'Races',
+                'attribute' => 'sort',
+            ],
+        ];
+    }
+
+
     /**
     * Создает новую модель Забега.
     * Если создание прошло успешно - перенаправляет на просмотр.
@@ -221,9 +242,9 @@ class RacesBackendController extends application\modules\admin\components\AdminC
         if (!$model){
             $model = new RaceRoute('insert');
             $model->race_id = $race->id;
-            return $this->render('regulation_create', ['model' => $model]);
+            return $this->render('route_create', ['model' => $model]);
         }
-        return $this->render('regulation_update', ['model' => $model, 'event_id' => $race->event_id]);
+        return $this->render('route_update', ['model' => $model, 'event_id' => $race->event_id]);
     }
     
     /**

@@ -37,7 +37,7 @@ $this->menu = [
 ?>
 <div class="page-header">
     <h1>
-        <?=  Yii::t('EventModule.Event', 'Просмотр') . ' ' . Yii::t('EventModule.Event', 'Мероприятия'); ?>        <br/>
+<!--        --><?//=  Yii::t('EventModule.Event', 'Просмотр') . ' ' . Yii::t('EventModule.Event', 'Мероприятия'); ?><!--        <br/>-->
         <small>&laquo;<?=  $model->name; ?>&raquo;</small>
     </h1>
 </div>

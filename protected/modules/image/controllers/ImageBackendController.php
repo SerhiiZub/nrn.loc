@@ -10,7 +10,8 @@
  * @link     http://yupe.ru
  *
  **/
-class ImageBackendController extends yupe\components\controllers\BackController
+class ImageBackendController extends application\modules\admin\components\AdminController
+//class ImageBackendController extends yupe\components\controllers\BackController
 {
     /**
      * @return array

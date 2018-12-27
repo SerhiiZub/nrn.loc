@@ -12,15 +12,15 @@
  **/
 $this->breadcrumbs = [
     $this->getModule()->getCategory() => [],
-    Yii::t('EventModule.Event', 'Мероприятия') => ['/Event/event/index'],
-    Yii::t('EventModule.Event', 'Управление'),
+    Yii::t('EventModule.Event', 'Спортивні заходи') => ['/Event/event/index'],
+    Yii::t('EventModule.Event', 'Керування'),
 ];
 
 $this->pageTitle = Yii::t('EventModule.Event', 'Мероприятия - управление');
 
 $this->menu = [
-    ['icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('EventModule.Event', 'Управление Мероприятиями'), 'url' => ['/Event/event/index']],
-    ['icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('EventModule.Event', 'Добавить Мероприятие'), 'url' => ['admin/event/create']],
+    ['icon' => 'fa fa-fw fa-list-alt', 'label' => Yii::t('EventModule.Event', 'Керування спортивними заходамми'), 'url' => ['/Event/event/index']],
+    ['icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('EventModule.Event', 'Додати спортивний захід'), 'url' => ['admin/event/create']],
 //    ['icon' => 'fa fa-fw fa-plus-square', 'label' => Yii::t('EventModule.Event', 'Добавить Мероприятие'), 'url' => ['/Event/event/create']],
 ];
 ?>
@@ -34,7 +34,7 @@ $this->menu = [
 <p>
     <a class="btn btn-default btn-sm dropdown-toggle" data-toggle="collapse" data-target="#search-toggle">
         <i class="fa fa-search">&nbsp;</i>
-        <?=  Yii::t('EventModule.Event', 'Поиск Мероприятий');?>
+        <?=  Yii::t('EventModule.Event', 'Пошук спортивних заходів');?>
         <span class="caret">&nbsp;</span>
     </a>
 </p>
@@ -56,7 +56,7 @@ $this->menu = [
 <br/>
 
 <p>
-    <?=  Yii::t('EventModule.Event', 'В данном разделе представлены средства управления Мероприятиями'); ?>
+    <?=  Yii::t('EventModule.Event', 'В даному розділі представлені засоби керування спортивними заходами'); ?>
 </p>
 
 <?php
@@ -66,40 +66,45 @@ $this->menu = [
         'id'           => 'event-grid',
         'type'         => 'striped condensed',
         'dataProvider' => $model->search(),
-//        'filter'       => $model,
+        'filter'       => $model,
         'actionsButtons' => [
-                CHtml::link(Yii::t('YupeModule.yupe', 'Add'), ['/admin/event/create'], ['class' => 'btn btn-success pull-right btn-sm'])
+                CHtml::link(Yii::t('EventModule.Event', 'Додати'), ['/admin/event/create'], ['class' => 'btn btn-success pull-right btn-sm'])
         ],
         'columns'      => [
             'id',
             'name',
+//            [
+//                'name'     => 'description',
+//                'value'    => function($data){
+//                    echo $data->description;
+//                },
+//            ],
+//            'status',
             [
-                'name'     => 'description',
-                'value'    => function($data){
-                    echo $data->description;
-//                    echo htmlspecialchars_decode($data->description);
-                },
+                'class'   => 'yupe\widgets\EditableStatusColumn',
+                'name'    => 'status',
+                'url'     => $this->createUrl('/admin/events/inline'),
+                'source'  => $model->getStatusList(),
+                'options' => [
+                    MyEvent::STATUS_ACTIVE   => ['class' => 'label-success'],
+                    MyEvent::STATUS_DISABLED => ['class' => 'label-default'],
+                    MyEvent::STATUS_ENDED => ['class' => 'label-default'],
+                ],
             ],
-//            'description',
-//            'create_user_id',
-//            'update_user_id',
-//            'create_time',
-//            'update_time',
-            'status',
             [
                 'class'    => 'bootstrap.widgets.TbEditableColumn',
-                'name'     => 'update_time',
+                'name'     => 'dateTimeStart',
                 'editable' => [
-//                    'url'        => $this->createUrl('/blog/postBackend/inline'),
+                    'url'        => $this->createUrl('/admin/events/inline'),
                     'type'       => 'datetime',
                     'options'    => [
                         'datetimepicker' => [
                             'format'   => 'dd-mm-yyyy hh:ii',
                             'language' => Yii::app()->language,
                         ],
-                        'datepicker'     => [
-                            'format' => 'dd-mm-yyyy',
-                        ],
+//                        'datepicker'     => [
+//                            'format' => 'dd-mm-yyyy',
+//                        ],
 
                     ],
                     'viewformat' => 'dd-mm-yyyy hh:ii',
@@ -108,9 +113,35 @@ $this->menu = [
                     ]
                 ],
                 'value'    => function($data){
-                    return $data->update_time;
+                    return $data->dateTimeStart;
                 },
-                'filter'   => CHtml::activeTextField($model, 'update_time', ['class' => 'form-control']),
+                'filter'   => CHtml::activeTextField($model, 'dateTimeStart', ['class' => 'form-control']),
+            ],
+            [
+                'class'    => 'bootstrap.widgets.TbEditableColumn',
+                'name'     => 'dateTimeEndRegistration',
+                'editable' => [
+                    'url'        => $this->createUrl('/admin/events/inline'),
+                    'type'       => 'datetime',
+                    'options'    => [
+                        'datetimepicker' => [
+                            'format'   => 'dd-mm-yyyy hh:ii',
+                            'language' => Yii::app()->language,
+                        ],
+//                        'datepicker'     => [
+//                            'format' => 'dd-mm-yyyy',
+//                        ],
+
+                    ],
+                    'viewformat' => 'dd-mm-yyyy hh:ii',
+                    'params'     => [
+                        Yii::app()->getRequest()->csrfTokenName => Yii::app()->getRequest()->csrfToken
+                    ]
+                ],
+                'value'    => function($data){
+                    return $data->dateTimeEndRegistration;
+                },
+                'filter'   => CHtml::activeTextField($model, 'dateTimeEndRegistration', ['class' => 'form-control']),
             ],
 //            'image',
 

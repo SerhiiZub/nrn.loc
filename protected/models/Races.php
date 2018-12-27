@@ -22,7 +22,7 @@
 class Races extends yupe\models\YModel
 //class Races extends CActiveRecord
 {
-    const STATUS_BLOCKED = 0;
+    const STATUS_DISABLED = 0;
     const STATUS_ACTIVE = 1;
     const STATUS_DELETED = 2;
     const STATUS_ENDED = 3;
@@ -42,7 +42,7 @@ class Races extends yupe\models\YModel
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('event_id, title, type_Id, age_category_id, start_number_prefix', 'required'),
+			array('event_id, title, type_Id, start_number_prefix', 'required'),
 			array('status', 'numerical', 'integerOnly'=>true),
 			array('event_id, type_Id, age_category_id, create_user_id, update_user_id', 'length', 'max'=>11),
 			array('title', 'length', 'max'=>150),
@@ -68,7 +68,7 @@ class Races extends yupe\models\YModel
 		    'ages' => [self::HAS_ONE, 'RaceAgeCategory', 'age_category_id'],
 		    'userCreated' => [self::HAS_ONE, 'User', 'create_user_id'],
 		    'userUpdate' => [self::HAS_ONE, 'User', 'update_user_id'],
-		    'event' => [self::BELONGS_TO, 'Event', 'event_id'],
+		    'event' => [self::BELONGS_TO, 'MyEvent', 'event_id'],
 		    'members' => [self::HAS_MANY, 'EventMembers', ['race_id', 'event_id']],
             'regulation' => [self::HAS_ONE, 'RaceRegulation', 'race_id'],
             'route' => [self::HAS_ONE, 'RaceRoute', 'race_id'],
@@ -202,10 +202,10 @@ class Races extends yupe\models\YModel
     public function getStatusList()
     {
         return [
-            self::STATUS_BLOCKED => Yii::t('EventModule.event', 'Blocked'),
-            self::STATUS_ACTIVE  => Yii::t('EventModule.event', 'Active'),
-            self::STATUS_DELETED => Yii::t('EventModule.event', 'Removed'),
-            self::STATUS_ENDED => Yii::t('EventModule.event', 'Ended'),
+            self::STATUS_DISABLED => Yii::t('EventModule.event', 'Заблокований'),
+            self::STATUS_ACTIVE  => Yii::t('EventModule.event', 'Активний'),
+//            self::STATUS_DELETED => Yii::t('EventModule.event', 'Removed'),
+            self::STATUS_ENDED => Yii::t('EventModule.event', 'Закінчився'),
         ];
     }
 

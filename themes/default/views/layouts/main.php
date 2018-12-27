@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="<?= Yii::app()->language; ?>">
 <head>
-    <?php \yupe\components\TemplateEvent::fire(SportEventsThemeEvents::HEAD_START);?>
+    <?php \yupe\components\TemplateEvent::fire(AdminThemeEvents::HEAD_START);?>
 
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
@@ -33,12 +33,12 @@
     <![endif]-->
     <link rel="stylesheet" href="http://yandex.st/highlightjs/8.2/styles/github.min.css">
     <script src="http://yastatic.net/highlightjs/8.2/highlight.min.js"></script>
-    <?php \yupe\components\TemplateEvent::fire(SportEventsThemeEvents::HEAD_END);?>
+    <?php \yupe\components\TemplateEvent::fire(AdminThemeEvents::HEAD_END);?>
 </head>
 
 <body>
 
-<?php \yupe\components\TemplateEvent::fire(SportEventsThemeEvents::BODY_START);?>
+<?php \yupe\components\TemplateEvent::fire(AdminThemeEvents::BODY_START);?>
 
 <?php if (Yii::app()->hasModule('menu')): ?>
     <?php $this->widget('application.modules.menu.widgets.MenuWidget', ['name' => 'top-menu']); ?>
@@ -70,7 +70,7 @@
     ); ?>
 <?php endif; ?>
 
-<?php \yupe\components\TemplateEvent::fire(SportEventsThemeEvents::BODY_END);?>
+<?php \yupe\components\TemplateEvent::fire(AdminThemeEvents::BODY_END);?>
 
 </body>
 </html>

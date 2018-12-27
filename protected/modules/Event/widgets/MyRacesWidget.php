@@ -41,18 +41,25 @@ class MyRacesWidget extends yupe\widgets\YWidget
         }
         $user =Yii::app()->user->getProfile();
         $criteria = new CDbCriteria();
-        $criteria->select = 't.race_id';
-        $criteria->addCondition('create_user_id = :id');
+//        $criteria->select = 't.race_id';
+        $criteria->addCondition('t.create_user_id = :id');
         $criteria->params[':id'] = $user->id;
+        $criteria->with = ['races'];
 
         $races = EventMembers::model()->findAll($criteria);
         if (empty($races) || !is_array($races)){
             return '';
         }
+//        var_dump($races);die;
         $myRaces = [];
         foreach ($races as $race){
-            $myRaces[] = $race->races;
+            if (!empty($race->races)){
+                $myRaces[] = $race->races;
+//                var_dump($race->races->event);die;
+            }
         }
-        return $this->render($this->view, ['myRaces' => $myRaces]);
+//        var_dump($myRaces);die;
+        return $this->render($this->view, ['myRaces' => $races]);
+//        return $this->render($this->view, ['myRaces' => $myRaces]);
     }
 }

@@ -16,13 +16,7 @@
             <h4><b><?=$model->title ?></b></h4>
         </div>
     </div>
-    <div class="row">
-        <div class="col-sm-12">
-<!--            --><?//= Yii::app()->getDateFormatter()->?>
-            <?=$model->description?>
-        </div>
-    </div>
-    <hr>
+
     <div class="row">
 
         <div class="col-sm-12">
@@ -31,11 +25,19 @@
                     !$model->getIsNewRecord() && $model->image ? $model->getImageUrl() : '#',
                     $model->title,
                     [
-                        'class' => 'preview-image img-responsive',
-                        'style' => !$model->getIsNewRecord() && $model->image ? '' : 'display:none',
+                        'class' => 'img-responsive',
+                        'style' =>  ' width: 100%;'. (!$model->getIsNewRecord() && $model->image ? '' : 'display:none;'),
                     ])
                 ?>
             <?php endif;?>
+        </div>
+    </div>
+    <br>
+    <hr>
+    <div class="row">
+        <div class="col-sm-12">
+            <!--            --><?//= Yii::app()->getDateFormatter()->?>
+            <?=$model->description?>
         </div>
     </div>
 </div>

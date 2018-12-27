@@ -1,8 +1,22 @@
 <!DOCTYPE html>
-<html>
+<html lang="<?= Yii::app()->language; ?>">
 <head>
-	<meta charset="UTF-8">
-	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+    <?php \yupe\components\TemplateEvent::fire(AdminThemeEvents::HEAD_START);?>
+<!--	<meta charset="UTF-8">-->
+<!--	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">-->
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta http-equiv="Content-Language" content="ru-RU" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title><?= $this->title;?></title>
+    <meta name="description" content="<?= $this->description;?>" />
+    <meta name="keywords" content="<?= $this->keywords;?>" />
+
+    <?php if ($this->canonical): ?>
+        <link rel="canonical" href="<?= $this->canonical ?>" />
+    <?php endif; ?>
 
     <?php Yii::app()->getClientScript()->registerCssFile($this->mainAssets . '/bootstrap/css/bootstrap.min.css')?>
     <?php Yii::app()->getClientScript()->registerCssFile($this->mainAssets . '/dist/css/AdminLTE.css')?>
@@ -17,30 +31,11 @@
     Yii::app()->getClientScript()->registerScriptFile($this->mainAssets . '/js/blog.js');
     Yii::app()->getClientScript()->registerScriptFile($this->mainAssets . '/js/bootstrap-notify.js');
     Yii::app()->getClientScript()->registerScriptFile($this->mainAssets . '/js/jquery.li-translit.js');
-    Yii::app()->getClientScript()->registerScriptFile($this->mainAssets . '/plugins/jQuery/jQuery-2.1.4.min.js');
     ?>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
     <!-- Ionicons -->
     <link href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type="text/css" />
 	<!-- bootstrap 3.0.2 -->
-<!--	<link href="--><?php //echo Yii::app()->theme->baseUrl; ?><!--/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />-->
-<!--	<link href="" rel="stylesheet" type="text/css" />-->
-    <!-- Font Awesome Icons -->
-
-	<!-- Theme style -->
-<!--	<link href="--><?php //echo Yii::app()->theme->baseUrl; ?><!--/dist/css/AdminLTE.css" rel="stylesheet" type="text/css" />-->
-     <!-- AdminLTE Skins. Choose a skin from the css/skins
-         folder instead of downloading all of them to reduce the load. -->
-<!--    <link href="--><?php //echo Yii::app()->theme->baseUrl; ?><!--/dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />-->
-    <!-- Style custom -->
-<!--    <link href="--><?php //echo Yii::app()->theme->baseUrl; ?><!--/dist/css/style.css" rel="stylesheet" type="text/css" />-->
-
-    <!-- jQuery 2.1.4 -->
-<!--    <script src="--><?php //echo Yii::app()->theme->baseUrl; ?><!--/plugins/jQuery/jQuery-2.1.4.min.js"></script>-->
-
-<!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.js"></script>-->
-	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
           <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
           <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
@@ -58,8 +53,6 @@
 
             <?php
                 $this->widget('application.modules.admin.widgets.Navbar', array(
-//                $this->widget('Navbar', array(
-                    //'brand'=>CHtml::image(Yii::app()->baseUrl . "/images/logo_neocds.png", ""),
                     'icon'=>'Adm',
                     'brand'=>'Панель управления',
                     'brandUrl'=>$this->createUrl('default/index'),
@@ -67,19 +60,19 @@
                     'items'=>array(
                         array(
                             'class'=>'Messages',
-                            'htmlOptions'=>array('class'=>'dropdown messages-menu'),
+                            'htmlOptions'=>array('class'=>'dropdown messages-menu hidden'),
                             'icon'=>'fa fa-envelope-o',
                             'itemsCssClass'=>'dropdown-menu',
-                            'labelHeader'=>array('title'=>'You have {n} messages|You have {n} messages', 'params'=>3),
+                            'labelHeader'=>array('title'=>'You have {n} messages|You have {n} messages', 'params'=>0),
                             'labelFooter'=>array('title'=>'See All Messages'),
-                            'badge'=>array('class'=>'label label-success', 'value'=>3),
+                            'badge'=>array('class'=>'label label-success', 'value'=>0),
                             'items'=>array(
                                 array('title'=>'Support Team', 'imageUrl'=>$this->mainAssets.'/dist/img/avatar04.png', 'url'=>'#','icon'=>'fa fa-clock-o','value'=>'Why not buy a new awesome theme?')
                                 )
                             ),
                         array(
                             'class'=>'Notifications',
-                            'htmlOptions'=>array('class'=>'dropdown notifications-menu'),
+                            'htmlOptions'=>array('class'=>'dropdown notifications-menu hidden'),
                             'icon'=>'fa fa-bell-o',
                             'itemsCssClass'=>'dropdown-menu',
                             'labelHeader'=>array('title'=>'You have {n} notification|You have {n} notifications', 'params'=>16),
@@ -91,7 +84,7 @@
                             ),
                         array(
                             'class'=>'Users',
-                            'htmlOptions'=>array('class'=>'dropdown user user-menu'),
+                            'htmlOptions'=>array('class'=>'dropdown user user-menu hidden'),
                             'avatar'=> $this->mainAssets.'/dist/img/avatar04.png',
                             'itemsCssClass'=>'dropdown-menu',
                             'items'=>array(
@@ -107,28 +100,15 @@
 
             <footer class="main-footer">
                 <div class="pull-right hidden-xs">
-                    <?php echo Yii::powered(); ?>
+<!--                    --><?php //echo Yii::powered(); ?>
                 </div>
-                Copyright &copy; <?php echo date('Y'); ?> by My Company. All Rights Reserved.
+                Copyright &copy; <?php echo date('Y'); ?> by <?=Yii::app()->name?>. All Rights Reserved.
             </footer>
 
 
           <div class='control-sidebar-bg'></div>
 
     </div><!-- ./wrapper -->
-
-    <!-- Bootstrap 3.3.2 JS -->
-<!--    <script src="--><?php //echo Yii::app()->theme->baseUrl; ?><!--/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>-->
-    <?php Yii::app()->getClientScript()->registerScriptFile($this->mainAssets . '/bootstrap/js/bootstrap.min.js');?>
-    <!-- SlimScroll -->
-<!--    <script src="--><?php //echo Yii::app()->theme->baseUrl; ?><!--/plugins/slimScroll/jquery.slimscroll.min.js" type="text/javascript"></script>-->
-    <?php Yii::app()->getClientScript()->registerScriptFile($this->mainAssets . '/plugins/slimScroll/jquery.slimscroll.min.js');?>
-    <!-- FastClick -->
-<!--    <script src='--><?php //echo Yii::app()->theme->baseUrl; ?><!--/plugins/fastclick/fastclick.min.js'></script>-->
-    <?php Yii::app()->getClientScript()->registerScriptFile($this->mainAssets . '/plugins/fastclick/fastclick.min.js');?>
-    <!-- AdminLTE App -->
-<!--    <script src="--><?php //echo Yii::app()->theme->baseUrl; ?><!--/dist/js/app.min.js" type="text/javascript"></script>-->
-    <?php Yii::app()->getClientScript()->registerScriptFile($this->mainAssets . '/dist/js/app.min.js');?>
-
+    <?php \yupe\components\TemplateEvent::fire(AdminThemeEvents::BODY_END);?>
 </body>
 </html>

@@ -28,7 +28,7 @@ class MyEvent extends yupe\models\YModel
     /**
      *
      */
-    const STATUS_BLOCKED = 0;
+    const STATUS_DISABLED = 0;
 
     /**
      *
@@ -61,7 +61,7 @@ class MyEvent extends yupe\models\YModel
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('name, city, dateTimeStart', 'required'),
+			array('name, city, dateTimeStart, dateTimeEndRegistration', 'required'),
 /*            [
                 'status, create_user_id, update_user_id, create_time, update_time',
                 'numerical',
@@ -109,18 +109,18 @@ class MyEvent extends yupe\models\YModel
 			'update_user_id' => 'Update User',
 			'create_time' => 'Create Time',
 			'update_time' => 'Update Time',
-			'image' => 'Image',
-			'name' => 'Name',
+			'image' => 'Зображеня',
+			'name' => 'Назва',
 			'event_organizer' => 'Організатор змагань',
-			'description' => 'Description',
+			'description' => 'Детальний опис',
 			'icon' => 'Icon',
 			'slug' => 'Slug',
-			'status' => 'Status',
-			'city' => 'City',
-			'address' => 'Address',
+			'status' => 'Статус',
+			'city' => 'Місто',
+			'address' => 'Адреса',
 			'sellerId' => 'Id seller',
-			'dateTimeStart' => 'Start event date',
-			'dateTimeEndRegistration' => 'End registration date',
+			'dateTimeStart' => 'Дата старту',
+			'dateTimeEndRegistration' => 'Дата закінчення реєстрації',
 		);
 	}
 
@@ -136,7 +136,11 @@ class MyEvent extends yupe\models\YModel
             ],
             'blocked'    => [
                 'condition' => 't.status = :status',
-                'params'    => [':status' => self::STATUS_BLOCKED],
+                'params'    => [':status' => self::STATUS_DISABLED],
+            ],
+            'ended'    => [
+                'condition' => 't.status = :status',
+                'params'    => [':status' => self::STATUS_ENDED],
             ],
         ];
     }
@@ -210,10 +214,11 @@ class MyEvent extends yupe\models\YModel
     public function getStatusList()
     {
         return [
-            self::STATUS_BLOCKED => Yii::t('EventModule.event', 'Blocked'),
-            self::STATUS_ACTIVE  => Yii::t('EventModule.event', 'Active'),
-            self::STATUS_DELETED => Yii::t('EventModule.event', 'Removed'),
-            self::STATUS_ENDED => Yii::t('EventModule.event', 'Ended'),
+            self::STATUS_DISABLED => Yii::t('EventModule.event', 'Заблокований'),
+//            self::STATUS_BLOCKED => Yii::t('EventModule.event', 'Blocked'),
+            self::STATUS_ACTIVE  => Yii::t('EventModule.event', 'Активний'),
+//            self::STATUS_DELETED => Yii::t('EventModule.event', 'Removed'),
+            self::STATUS_ENDED => Yii::t('EventModule.event', 'Закінчився'),
         ];
     }
 
@@ -326,5 +331,26 @@ class MyEvent extends yupe\models\YModel
     public function getHtmlDescription()
     {
         return htmlspecialchars_decode($this->description);
+    }
+
+    protected function afterFind()
+    {
+        parent::afterFind();
+        $now = new DateTime('now');
+
+        if ($this->dateTimeEndRegistration < $now->format('Y-m-d H:m:i')){
+            if (!empty($this->races)){
+                foreach ($this->races as $race){
+                    if ($race->status == Races::STATUS_ACTIVE){
+                        $race->status = Races::STATUS_ENDED;
+                        $race->save();
+                    }
+                }
+            }
+        }
+        if ($this->status == MyEvent::STATUS_ACTIVE && $this->dateTimeStart < $now->format('Y-m-d H:m:i')){
+            $this->status = MyEvent::STATUS_ENDED;
+            $this->save();
+        }
     }
 }

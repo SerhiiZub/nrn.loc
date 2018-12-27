@@ -46,6 +46,7 @@ class RaceController extends \yupe\components\controllers\FrontController
         $model = new EventMembers;
 //        $model = EventMembers::model();
         if (Yii::app()->getRequest()->getPost('EventMembers') !== null) {
+            $this->actionMemberRegistration();
             $model->setAttributes(Yii::app()->getRequest()->getPost('EventMembers'));
 
             if ($model->save()) {
@@ -74,30 +75,52 @@ class RaceController extends \yupe\components\controllers\FrontController
             $model->setAttributes(Yii::app()->getRequest()->getPost('EventMembers'));
 
             if (Yii::app()->getUser()->isGuest){
-                //todo user registration
+                $this->redirect('/login');
+            }
+
+            $order = new EventOrders('insert');
+            $organizer = MyEvent::model()->findByPk($model->event_id)->organizer;
+            $race = Races::model()->findByPk($model->race_id);
+            $order->event_id = $model->event_id;
+            $order->race_id = $model->race_id;
+
+            $order->organizer_id = !empty($organizer->id) ? $organizer->id : null;
+            $order->user_id = Yii::app()->getUser()->getId();
+            $order->amount = $race->cost;
+            $order->promo_code = '';
+            if (!empty($race->cost) && $race->cost != 0){
+                $order->payment_status = EventOrders::NOT_PAYED;
             } else {
-                //todo check if already registered
+                $order->payment_status = EventMembers::PAYMENT_FREE;
             }
 
             if ($model->save()) {
-                Yii::app()->user->setFlash(
-                    yupe\widgets\YFlashMessages::SUCCESS_MESSAGE,
-                    Yii::t('EventModule.Event', 'Запись добавлена!')
-                );
-
-                //todo check submit type
-
-                $this->redirect(
-                    (array)Yii::app()->getRequest()->getPost(
-                        'submit-type',
-                        [
-                            'update',
-                            'id' => $model->id
-                        ]
-                    )
-                );
+                $order->event_member_id = $model->id;
+                if (!$order->save()){
+                    Yii::app()->user->setFlash(yupe\widgets\YFlashMessages::ERROR_MESSAGE, Yii::t('EventModule.Event', 'Сталась помилка!'));
+                    $model->delete();
+                    return false;
+                }
+                if (!empty($race->cost) && $race->cost != 0) {
+                    $redirect = Yii::app()->createUrl('/payment/payProcess', ['order' => $order->id]);
+                    $this->redirect($redirect);
+                } else {
+                    $this->redirect('/profile');
+                }
+//
+//                $this->redirect(
+//                    (array)Yii::app()->getRequest()->getPost(
+//                        'submit-type',
+//                        [
+//                            'update',
+//                            'id' => $model->id
+//                        ]
+//                    )
+//                );
             }
         }
+//        $this->render('view', ['model' => $this->loadModel($model->race_id), 'memberModel' => $model ]);
+//        $this->redirect('/race/'.$model->race_id);
 //        todo return error|member registration widget
     }
 

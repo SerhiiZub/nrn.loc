@@ -129,6 +129,7 @@ class LiqPay
      */
     public function cnb_form($params)
     {
+//        $language = 'uk';
         $language = 'ru';
         if (isset($params['language']) && $params['language'] == 'en') {
             $language = 'en';
@@ -137,19 +138,54 @@ class LiqPay
         $params    = $this->cnb_params($params);
         $data      = $this->encode_params($params);
         $signature = $this->cnb_signature($params);
+
+        $btn = sprintf(
+            '<button 
+                            style="
+                                border: none !important; 
+                                display:inline-block !important;
+                                text-align: center !important;
+                                padding: 7px 20px !important;
+                                color: #fff !important; 
+                                font-size:16px !important; 
+                                font-weight: 600 !important; 
+                                font-family:OpenSans, sans-serif; 
+                                cursor: pointer !important; 
+                                border-radius: 2px !important;
+                                background: rgb(122,183,43) !important;"
+                            onmouseover="this.style.opacity=\'0.5\';" 
+                            onmouseout="this.style.opacity=\'1\';
+                            ">
+                        <img src="https://static.liqpay.ua/buttons/logo-small.png" name="btn_text"
+                            style="margin-right: 7px !important; vertical-align: middle !important;"/>
+                        <span style="vertical-align:middle; !important">%s %01.2f %s</span>
+                    </button>',
+            Yii::t('EventModule.events', 'Придбати зараз'), $params['amount'], $params['currency']);
         
         return sprintf('
             <form method="POST" action="%s" accept-charset="utf-8">
                 %s
                 %s
-                <input type="image" src="//static.liqpay.ua/buttons/p1%s.radius.png" name="btn_text" />
+                %s
             </form>
             ',
             $this->_checkout_url,
             sprintf('<input type="hidden" name="%s" value="%s" />', 'data', $data),
             sprintf('<input type="hidden" name="%s" value="%s" />', 'signature', $signature),
-            $language
+            $btn
         );
+//        return sprintf('
+//            <form method="POST" action="%s" accept-charset="utf-8">
+//                %s
+//                %s
+////                <input type="image" src="//static.liqpay.ua/buttons/p1%s.radius.png" name="btn_text" />
+//            </form>
+//            ',
+//            $this->_checkout_url,
+//            sprintf('<input type="hidden" name="%s" value="%s" />', 'data', $data),
+//            sprintf('<input type="hidden" name="%s" value="%s" />', 'signature', $signature),
+//            $language
+//        );
     }
 
     /**

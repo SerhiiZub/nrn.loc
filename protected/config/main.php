@@ -69,6 +69,12 @@ return [
      * @link http://www.yiiframework.ru/doc/guide/ru/basics.component
      */
     'components' => [
+        'request' => [
+            'noCsrfValidationRoutes' => [
+                'payment/success',
+                'Event/LiqpayPayment/success'
+            ],
+        ],
         'viewRenderer' => [
             'class' => 'vendor.yiiext.twig-renderer.ETwigViewRenderer',
             'twigPathAlias' => 'vendor.twig.twig.lib.Twig',
@@ -172,5 +178,8 @@ return [
      * @link http://docs.yupe.ru/userspace.config/
      */
     'rules' => [
+        '/payment/payProcess/*' => 'Event/LiqpayPayment/payProcess/*',
+        '/payment/<action:\w+>' => 'Event/LiqpayPayment/<action>',
+        '/payment/success' => 'Event/LiqpayPayment/success',
     ]
 ];
